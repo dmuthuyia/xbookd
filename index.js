@@ -1,9 +1,12 @@
 /**
- * @format
+ developer: Dennis Muthuyia  
+ email:  dmuthuyia@gmail.com
  */
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
+import { AppRegistry } from "react-native";
+import App from "./App";
 
-AppRegistry.registerComponent(appName, () => App);
+import Login from "./components/login";
+import { name as appName } from "./app.json";
+
+AppRegistry.registerComponent(appName, () => Login);
