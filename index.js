@@ -6,7 +6,7 @@
 import { AppRegistry } from "react-native";
 import App from "./App";
 
-import Login from "./components/login";
+import Sprashscreen2 from "./components/sprashscreen2";
 import { name as appName } from "./app.json";
 
-AppRegistry.registerComponent(appName, () => Login);
+AppRegistry.registerComponent(appName, () => Sprashscreen2);
