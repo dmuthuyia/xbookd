@@ -13,7 +13,7 @@ export default class Signup extends Component {
     return (
       <View style={styles.container}>
         <Logo />
-        <Form />
+        <Form type="Sign up" />
         <View style={styles.signupTextCont}>
           <Text style={styles.signupText}>Already have an account?</Text>
           <Text style={styles.signupButton}>Sign in</Text>

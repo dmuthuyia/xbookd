@@ -36,7 +36,7 @@ export default class Logo extends Component {
           ref={"txtPassword"}
         />
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>SIGN IN</Text>
+          <Text style={styles.buttonText}>{this.props.type}</Text>
         </TouchableOpacity>
       </View>
     );
