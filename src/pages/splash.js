@@ -9,6 +9,7 @@ export default class SplashsScreen2 extends Component {
   circle = new Animated.Value(0);
   logo = new Animated.Value(0);
   title = new Animated.Value(0);
+  box1 = new Animated.Value(0);
 
   componentDidMount() {
     Animated.sequence([
@@ -23,6 +24,11 @@ export default class SplashsScreen2 extends Component {
       }),
 
       Animated.timing(this.title, {
+        toValue: 1,
+        duration: 2000
+      }),
+
+      Animated.timing(this.box1, {
         toValue: 1,
         duration: 2000
       })
@@ -51,21 +57,22 @@ export default class SplashsScreen2 extends Component {
       outputRange: [1, 0]
     });
 
+    const paintxy1 = this.box1.interpolate({
+      inputRange: [0, 1],
+      outputRange: [1, 0]
+    });
+
     return (
       <View style={styles.con}>
         <Animated.Image
           source={Assets.logo}
           style={[styles.icon, { transform: [{ translateY: tranY }] }]}
         />
-        <Animated.View
-          style={[styles.circle, { transform: [{ translateY }] }]}
-        />
+        <Animated.View style={[styles.box1, { transform: [{ translateY }] }]} />
         <Animated.Text style={{ color: "#fff", fontSize: 50, opacity }}>
           bookd
         </Animated.Text>
-        <Animated.Text style={{ color: "#fff", fontSize: 14, opacity2 }}>
-          Hire my art
-        </Animated.Text>
+        <Text style={{ color: "#fff", fontSize: 14 }}>Hire my art</Text>
         <Animated.Text style={{ color: "#fff", fontSize: 12, opacity }}>
           www.bookd.com
         </Animated.Text>
@@ -91,7 +98,18 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     borderRadius: h,
     position: "absolute",
-    zIndex: -1
+    zIndex: -1,
+    borderWidth: 12,
+    borderColor: "red"
+  },
+  box1: {
+    width: height,
+    height,
+    backgroundColor: "blue",
+    position: "absolute",
+    zIndex: -1,
+    borderWidth: 12,
+    borderColor: "#4c1037"
   },
   icon: {
     width: 100,

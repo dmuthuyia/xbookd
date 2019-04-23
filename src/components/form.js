@@ -36,7 +36,7 @@ export default class Logo extends Component {
           ref={"txtPassword"}
         />
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>{this.props.type}</Text>
+          <Text style={styles.buttonText}>Sign in</Text>
         </TouchableOpacity>
       </View>
     );
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: 250,
-    backgroundColor: "#ADFF2F",
+    backgroundColor: "#92ca2c",
     paddingVertical: 5,
     borderRadius: 10,
     borderColor: "#ffffff",

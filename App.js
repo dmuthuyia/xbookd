@@ -4,37 +4,78 @@
  */
 
 import React, { Component } from "react";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { StyleSheet, View, StatusBar, Button, Text } from "react-native";
 
+import { createSwitchNavigator, createAppContainer } from "react-navigation";
+
+import Splash from "./src/pages/splash";
 import Login from "./src/pages/login";
 import Signup from "./src/pages/signup";
+import Routes from "./src/routes";
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor="blue" barStyle="light-content" />
-        <Signup />
+        <StatusBar backgroundColor="#4c1037" barStyle="light-content" />
+        <AppContainer />
       </View>
     );
   }
 }
 
+class WelcomeScreen extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Splash />
+        <View style={styles.buttonContainer}>
+          <Text
+            style={styles.buttonText}
+            onPress={() => this.props.navigation.navigate("Dashboard")}
+          >
+            Proceede to login
+          </Text>
+        </View>
+      </View>
+    );
+  }
+}
+
+class DashboardScreen extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Login />
+      </View>
+    );
+  }
+}
+
+const SplashSwitchNavigator = createSwitchNavigator({
+  welcome: { screen: WelcomeScreen },
+  Dashboard: { screen: DashboardScreen }
+});
+
+const AppContainer = createAppContainer(SplashSwitchNavigator);
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "blue"
+    backgroundColor: "blue",
+    flex: 1
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
+  buttonCont: {
+    backgroundColor: "red"
   },
-  instructions: {
+  buttonContainer: {
+    backgroundColor: "#4c1037",
+    paddingVertical: 5,
+    textAlign: "center"
+  },
+  buttonText: {
     textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
+    color: "#ffffff",
+    fontWeight: "bold",
+    fontSize: 18
   }
 });

@@ -13,7 +13,7 @@ export default class Login extends Component {
     return (
       <View style={styles.container}>
         <Logo />
-        <Form type="Login" />
+        <Form />
         <View style={styles.signupTextCont}>
           <Text style={styles.signupText}>You don't have an account yet?</Text>
           <Text style={styles.signupButton}>Sign up</Text>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   signupButton: {
-    color: "#ffffff",
+    color: "yellow",
     fontSize: 16,
     fontWeight: "500"
   }
