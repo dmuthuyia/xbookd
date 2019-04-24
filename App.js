@@ -12,6 +12,7 @@ import Splash from "./src/pages/splash";
 import Login from "./src/pages/login";
 import Signup from "./src/pages/signup";
 import Routes from "./src/routes";
+import BookdLogin from "./src/pages/bookdLogin";
 
 export default class App extends Component {
   render() {
@@ -46,7 +47,7 @@ class DashboardScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Login />
+        <BookdLogin />
       </View>
     );
   }
