@@ -9,10 +9,7 @@ import { StyleSheet, View, StatusBar, Button, Text } from "react-native";
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
 
 import Splash from "./src/pages/splash";
-import Login from "./src/pages/login";
-import Signup from "./src/pages/signup";
-import Routes from "./src/routes";
-import BookdLogin from "./src/pages/bookdLogin";
+import BoukdWelcome from "./src/pages/welcome";
 
 export default class App extends Component {
   render() {
@@ -35,7 +32,7 @@ class WelcomeScreen extends Component {
             style={styles.buttonText}
             onPress={() => this.props.navigation.navigate("Dashboard")}
           >
-            Proceede to login
+            proceed to login
           </Text>
         </View>
       </View>
@@ -47,7 +44,7 @@ class DashboardScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <BookdLogin />
+        <BoukdWelcome />
       </View>
     );
   }

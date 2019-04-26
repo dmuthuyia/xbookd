@@ -70,11 +70,11 @@ export default class SplashsScreen2 extends Component {
         />
         <Animated.View style={[styles.box1, { transform: [{ translateY }] }]} />
         <Animated.Text style={{ color: "#fff", fontSize: 50, opacity }}>
-          bookd
+          boukd
         </Animated.Text>
         <Text style={{ color: "#fff", fontSize: 14 }}>Hire my art</Text>
         <Animated.Text style={{ color: "#fff", fontSize: 12, opacity }}>
-          www.bookd.com
+          www.boukd.com
         </Animated.Text>
       </View>
     );

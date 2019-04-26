@@ -4,5 +4,5 @@
  */
 
 export default {
-  logo: require("./images/bookd-logo.png")
+  logo: require("./images/boukd-logo.png")
 };

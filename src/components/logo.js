@@ -12,7 +12,7 @@ export default class Logo extends Component {
     return (
       <View style={styles.container}>
         <Image source={Assets.logo} style={styles.logo} />
-        <Text style={styles.logoText}>Welcome to bookd</Text>
+        <Text style={styles.logoText}>Welcome to boukd</Text>
       </View>
     );
   }

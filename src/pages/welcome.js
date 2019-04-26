@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TextInput,
   TouchableOpacity
 } from "react-native";
@@ -16,59 +15,14 @@ import {
 } from "react-navigation";
 import Icon from "react-native-vector-icons/Ionicons";
 import Logo from "../components/logo";
+import BoukdLogin from "./login";
+import BoukdSignup from "./signup";
 
-export default class sample2 extends Component {
+export default class Welcome extends Component {
   render() {
     return (
       <View style={styles.MainContainer}>
         <AppContainer />
-      </View>
-    );
-  }
-}
-
-class LoginScreen extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Logo />
-        <View style={styles.container}>
-          <TextInput
-            style={styles.inputBox}
-            placeholder="Enter username/email"
-            placeholderTextColor="rgba(255,255,255,0.8)"
-            keyboardType="email-address"
-            returnKeyType="next"
-            autoCorrect={false}
-            onSubmitEditing={() => this.refs.txtPassword.focus()}
-          />
-          <TextInput
-            style={styles.inputBox}
-            placeholder="Enter password"
-            placeholderTextColor="rgba(255,255,255,0.8)"
-            returnKeyType="go"
-            secureTextEntry={true}
-            autoCorrect={false}
-            ref={"txtPassword"}
-          />
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text
-              style={styles.buttonText}
-              onPress={() => this.props.navigation.navigate("Dashboard")}
-            >
-              Sign in
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.signupTextCont}>
-          <Text style={styles.signupText}>You don't have an account yet?</Text>
-          <Text
-            style={styles.signupButton}
-            onPress={() => alert("button pressed")}
-          >
-            Sign up
-          </Text>
-        </View>
       </View>
     );
   }
@@ -146,7 +100,14 @@ const DashboardStackNavigator = createStackNavigator(
   {
     defaultNavigationOptions: ({ navigation }) => {
       return {
-        headerLeft: <Icon name="ios-list" size={30} />
+        headerLeft: (
+          <Icon
+            style={{ paddingLeft: 10 }}
+            onPress={() => navigation.openDrawer()}
+            name="ios-list"
+            size={30}
+          />
+        )
       };
     }
   }
@@ -159,12 +120,13 @@ const AppDrawerNavigator = createDrawerNavigator({
   }
 });
 
-const bookdwitchNavigator = createSwitchNavigator({
-  welcome: { screen: LoginScreen },
-  Dashboard: { screen: AppDrawerNavigator }
+const boukdwitchNavigator = createSwitchNavigator({
+  Login: { screen: BoukdLogin },
+  Dashboard: { screen: AppDrawerNavigator },
+  Signup: { screen: BoukdSignup }
 });
 
-const AppContainer = createAppContainer(bookdwitchNavigator);
+const AppContainer = createAppContainer(boukdwitchNavigator);
 
 const styles = StyleSheet.create({
   MainContainer: {
@@ -246,5 +208,21 @@ const styles = StyleSheet.create({
     color: "rgb(32, 53, 70)",
     fontWeight: "bold",
     fontSize: 18
+  },
+  signupTextCont: {
+    flex: 1,
+    alignItems: "flex-end",
+    justifyContent: "center",
+    paddingVertical: 16,
+    flexDirection: "row"
+  },
+  signupText: {
+    color: "rgba(255,255,255,0.7)",
+    fontSize: 16
+  },
+  signupButton: {
+    color: "yellow",
+    fontSize: 16,
+    fontWeight: "500"
   }
 });

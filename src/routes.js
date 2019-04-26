@@ -3,7 +3,7 @@ import { Router, Stack, Scene } from "react-native-router-flux";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 
-class Routes extends Component<{}> {
+class Routes extends Component {
   render() {
     return (
       <Router>
