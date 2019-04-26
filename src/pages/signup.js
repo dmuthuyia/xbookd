@@ -16,6 +16,42 @@ import { createStackNavigator } from "react-navigation";
 import Logo from "../components/logo";
 
 export default class Signup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: "",
+      userEmail: "",
+      userPassword: ""
+    };
+  }
+
+  userRegister = () => {
+    //alert("yo");
+    const { userName } = this.state;
+    const { userEmail } = this.state;
+    const { userPassword } = this.state;
+    fetch("https://infohtechict.co.ke/apps/boukd/register.php", {
+      method: "post",
+      header: {
+        Accept: "application/json",
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        UserName: userName,
+        email: userEmail,
+        password: userPassword
+      })
+    })
+      .then(response => response.json())
+      .then(responseJsonFromServer => {
+        alert(responseJsonFromServer);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    //() => this.props.navigation.navigate("Login");
+    //onButtonPress = () => this.props.navigation.navigate("Login");
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -27,6 +63,7 @@ export default class Signup extends Component {
             placeholderTextColor="rgba(255,255,255,0.8)"
             returnKeyType="next"
             autoCorrect={false}
+            onChangeText={userName => this.setState({ userName })}
             onSubmitEditing={() => this.refs.txtPassword.focus()}
           />
           <TextInput
@@ -36,6 +73,7 @@ export default class Signup extends Component {
             keyboardType="email-address"
             returnKeyType="next"
             autoCorrect={false}
+            onChangeText={userEmail => this.setState({ userEmail })}
             onSubmitEditing={() => this.refs.txtPassword.focus()}
           />
           <TextInput
@@ -46,6 +84,7 @@ export default class Signup extends Component {
             secureTextEntry={true}
             autoCorrect={false}
             ref={"txtPassword"}
+            onChangeText={userPassword => this.setState({ userPassword })}
           />
           <TextInput
             style={styles.inputBox}
@@ -56,17 +95,15 @@ export default class Signup extends Component {
             autoCorrect={false}
             ref={"txtPassword"}
           />
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Text
-              style={styles.buttonText}
-              onPress={() => this.props.navigation.navigate("Login")}
-            >
-              Sign up
-            </Text>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={this.userRegister}
+          >
+            <Text style={styles.buttonText}>Sign up</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.signupTextCont}>
-          <Text style={styles.signupText}>You don't have an account yet?</Text>
+          <Text style={styles.signupText}>Already registered?</Text>
           <Text
             style={styles.signupButton}
             onPress={() => this.props.navigation.navigate("Login")}
