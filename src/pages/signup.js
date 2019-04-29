@@ -44,12 +44,17 @@ export default class Signup extends Component {
     })
       .then(response => response.json())
       .then(responseJsonFromServer => {
-        alert(responseJsonFromServer);
+        if (responseJsonFromServer == "User Registered Successfully") {
+          alert(responseJsonFromServer);
+          this.props.navigation.navigate("Login");
+        } else {
+          alert("Something went wrong");
+        }
       })
       .catch(error => {
         console.error(error);
       });
-    //() => this.props.navigation.navigate("Login");
+
     //onButtonPress = () => this.props.navigation.navigate("Login");
   };
   render() {
@@ -137,7 +142,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 20,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    fontSize: 16
   },
   logoText: {
     marginVertical: 15,

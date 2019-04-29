@@ -17,6 +17,10 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Logo from "../components/logo";
 import BoukdLogin from "./login";
 import BoukdSignup from "./signup";
+import Book from "./book";
+import WhereAt from "./whereat";
+import WhipUp from "./whipup";
+import Livestream from "./livestream";
 
 export default class Welcome extends Component {
   render() {
@@ -40,31 +44,41 @@ class DashboardScreen extends Component {
   }
 }
 
-class Book extends Component {
+class BookWrap extends Component {
   render() {
     return (
       <View style={styles.MainContainer}>
-        <Text>Book</Text>
+        <Book />
       </View>
     );
   }
 }
 
-class Livestream extends Component {
+class LivestreamWrap extends Component {
   render() {
     return (
       <View style={styles.MainContainer}>
-        <Text>Livestream </Text>
+        <Livestream />
       </View>
     );
   }
 }
 
-class WhereAt extends Component {
+class WhereAtWrap extends Component {
   render() {
     return (
       <View style={styles.MainContainer}>
-        <Text>Where At</Text>
+        <WhereAt />
+      </View>
+    );
+  }
+}
+
+class whipUpWrap extends Component {
+  render() {
+    return (
+      <View style={styles.MainContainer}>
+        <WhipUp />
       </View>
     );
   }
@@ -72,9 +86,10 @@ class WhereAt extends Component {
 
 const DashboardTabNavigator = createBottomTabNavigator(
   {
-    Book,
-    WhereAt,
-    Livestream
+    Book: { screen: BookWrap },
+    "Where At": { screen: WhereAtWrap },
+    Livestream: { screen: LivestreamWrap },
+    "whip up": { screen: whipUpWrap }
   },
   {
     navigationOptions: ({ navigation }) => {
