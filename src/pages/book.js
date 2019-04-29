@@ -11,7 +11,9 @@ import {
   FlatList,
   TextInput,
   TouchableOpacity,
-  Image
+  ActivityIndicator,
+  Image,
+  ToastAndroid
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
 //import console = require("console");
@@ -20,13 +22,17 @@ export default class Book extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: []
+      dataSource: [],
+      isLoading: true
     };
   }
 
   renderItem = ({ item }) => {
     return (
-      <View style={{ flex: 1, flexDirection: "row", marginBottom: 3 }}>
+      <TouchableOpacity
+        style={{ flex: 1, flexDirection: "row", marginBottom: 3 }}
+        onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
+      >
         <Image
           style={{ width: 60, height: 60, margin: 5 }}
           source={{
@@ -39,7 +45,7 @@ export default class Book extends Component {
             justifyContent: "center",
             borderBottomEndRadius: 20,
             marginRight: 5,
-            backgroundColor: "#FAF6FB"
+            backgroundColor: "#F6F1F8"
           }}
         >
           <Text style={{ fontSize: 18, color: "blue", marginBottom: 1 }}>
@@ -49,7 +55,13 @@ export default class Book extends Component {
             email: {item.email}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
+    );
+  };
+
+  renderSeparator = () => {
+    return (
+      <View style={{ height: 1, width: "100%", backgroundColor: "gray" }} />
     );
   };
 
@@ -59,7 +71,8 @@ export default class Book extends Component {
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
-          dataSource: responseJson
+          dataSource: responseJson,
+          isLoading: false
         });
       })
       .catch(error => {
@@ -67,13 +80,17 @@ export default class Book extends Component {
       });
   }
   render() {
-    return (
+    return this.state.isLoading ? (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#330066" animating />
+      </View>
+    ) : (
       <View style={styles.container}>
-        <Text />
         <FlatList
           data={this.state.dataSource}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => index}
+          ItemSeparatorComponent={this.renderSeparator}
         />
       </View>
     );
