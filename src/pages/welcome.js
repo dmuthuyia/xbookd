@@ -4,7 +4,8 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
 import {
   createSwitchNavigator,
@@ -21,6 +22,7 @@ import Book from "./book";
 import WhereAt from "./whereat";
 import WhipUp from "./whipup";
 import Livestream from "./livestream";
+import assets from "../assets/assets";
 
 export default class Welcome extends Component {
   render() {
@@ -116,12 +118,16 @@ const DashboardStackNavigator = createStackNavigator(
     defaultNavigationOptions: ({ navigation }) => {
       return {
         headerLeft: (
-          <Icon
-            style={{ paddingLeft: 10 }}
-            onPress={() => navigation.openDrawer()}
-            name="ios-list"
-            size={30}
-          />
+          <View>
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Image
+                style={{ width: 40, height: 40 }}
+                source={assets.bkdmenu3}
+                name="ios-list"
+                size={30}
+              />
+            </TouchableOpacity>
+          </View>
         )
       };
     }
@@ -132,7 +138,12 @@ const AppDrawerNavigator = createDrawerNavigator({
   Dashboard: {
     /*screen: DashboardTabNavigator*/
     screen: DashboardStackNavigator
-  }
+  },
+  Profile: { screen: WhereAtWrap },
+  Locals: { screen: LivestreamWrap },
+  calendar: { screen: whipUpWrap },
+  Settings: { screen: whipUpWrap },
+  "About us": { screen: whipUpWrap }
 });
 
 const boukdwitchNavigator = createSwitchNavigator({

@@ -4,34 +4,24 @@
  */
 
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
 import {
-  createDrawerNavigator,
-  createAppContainer,
-  createMaterialTopTabNavigator
-} from "react-navigation";
-import Musician from "./musician";
-import DJ from "./dj";
-import Dancer from "./dancer";
-import Mc from "./mc";
-import Actor from "./actor";
-import Poet from "./poet";
-import Runway from "./runway";
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity
+} from "react-native";
+import { createStackNavigator } from "react-navigation";
 
-const Drawer = createMaterialTopTabNavigator({
-  Ho: { screen: Musician },
-  DJ: { screen: DJ },
-  Da: { screen: Dancer },
-  DJ: { screen: DJ },
-  Mc: { screen: Mc },
-  Ac: { screen: Actor },
-  Po: { screen: Poet },
-  Mo: { screen: Runway }
-});
-
-const PContainer = createAppContainer(Drawer);
-
-export default PContainer;
+export default class Dancer extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Dancer</Text>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
