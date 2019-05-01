@@ -5,6 +5,7 @@
 
 import { AppRegistry } from "react-native";
 import App from "./App";
+//import App from "./src/heyj/App";
 
 //import Splash from "./src/pages/splash";
 import Book from "./src/pages/book";

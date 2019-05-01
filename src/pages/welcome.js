@@ -1,12 +1,6 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Image
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { Platform, Dimensions } from "react-native";
 import {
   createSwitchNavigator,
   createAppContainer,
@@ -14,15 +8,22 @@ import {
   createBottomTabNavigator,
   createStackNavigator
 } from "react-navigation";
-import Icon from "react-native-vector-icons/Ionicons";
-import Logo from "../components/logo";
+
 import BoukdLogin from "./login";
 import BoukdSignup from "./signup";
 import Book from "./book";
 import WhereAt from "./whereat";
 import WhipUp from "./whipup";
 import Livestream from "./livestream";
-import assets from "../assets/assets";
+import Assets from "../assets/assets";
+
+import Profile from "./profile";
+import Places from "./places";
+import Calendar from "./calendar";
+import Settings from "./settings";
+import AboutUs from "./about";
+
+import MenuDrawer from "./MenuDrawer";
 
 export default class Welcome extends Component {
   render() {
@@ -86,6 +87,10 @@ class whipUpWrap extends Component {
   }
 }
 
+//--------NAVIGATORS ---------------------------------------------------
+
+//--------TAB NAVIGATOR 1 ---------------------------------------------------
+
 const DashboardTabNavigator = createBottomTabNavigator(
   {
     Book: { screen: BookWrap },
@@ -110,6 +115,8 @@ const DashboardTabNavigator = createBottomTabNavigator(
   }
 );
 
+//--------STACK NAVIGATOR 1 ---------------------------------------------------
+
 const DashboardStackNavigator = createStackNavigator(
   {
     DashboardTabNavigator: DashboardTabNavigator
@@ -122,7 +129,7 @@ const DashboardStackNavigator = createStackNavigator(
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Image
                 style={{ width: 40, height: 40 }}
-                source={assets.bkdmenu3}
+                source={Assets.bkdmenu3}
                 name="ios-list"
                 size={30}
               />
@@ -134,7 +141,9 @@ const DashboardStackNavigator = createStackNavigator(
   }
 );
 
-const AppDrawerNavigator = createDrawerNavigator({
+//--------DRAWER NAVIGATOR 1 ---------------------------------------------------
+
+const BoukedAppDrawerNavigator = createDrawerNavigator({
   Dashboard: {
     /*screen: DashboardTabNavigator*/
     screen: DashboardStackNavigator
@@ -146,13 +155,56 @@ const AppDrawerNavigator = createDrawerNavigator({
   "About us": { screen: whipUpWrap }
 });
 
+//--------DRAWER NAVIGATOR 2 ---------------------------------------------------
+
+const WIDTH = Dimensions.get("window").width;
+
+const DrawerConfig = {
+  drawerWidth: WIDTH * 0.83,
+  contentComponent: ({ navigation }) => {
+    return <MenuDrawer navigation={navigation} />;
+  }
+};
+
+const DrawerNavigator = createDrawerNavigator(
+  {
+    Dashboard: {
+      /*screen: DashboardTabNavigator*/
+      screen: DashboardStackNavigator
+    },
+
+    Profile: {
+      screen: Profile
+    },
+    Places: {
+      screen: Places
+    },
+    Calendar: {
+      screen: Calendar
+    },
+    Settings: {
+      screen: Settings
+    },
+    AboutUs: {
+      screen: AboutUs
+    }
+  },
+  DrawerConfig
+);
+
+//--------SWITCH NAVIGATOR 1 ---------------------------------------------------
+
 const boukdwitchNavigator = createSwitchNavigator({
   Login: { screen: BoukdLogin },
-  Dashboard: { screen: AppDrawerNavigator },
+  Dashboard: { screen: DrawerNavigator },
   Signup: { screen: BoukdSignup }
 });
 
+//--------NAVIGATOR CONTAINER 1 ---------------------------------------------------
+
 const AppContainer = createAppContainer(boukdwitchNavigator);
+
+//--------STYLES ----------------------------------------------------------------
 
 const styles = StyleSheet.create({
   MainContainer: {
