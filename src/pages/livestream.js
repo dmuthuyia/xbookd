@@ -6,6 +6,7 @@
 import React, { Component } from "react";
 import {
   StyleSheet,
+  Dimensions,
   Text,
   View,
   TextInput,
@@ -13,6 +14,14 @@ import {
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import geolib from "geolib";
+
+const WIDTH = Dimensions.get("window").width;
+const HEIGHT = Dimensions.get("window").height;
+
+const mapHeight = (90 * HEIGHT) / 100;
+const controlsContHeight = (10 * HEIGHT) / 100;
+const maxWidth = WIDTH;
 
 export default class Livestream extends Component {
   constructor(props) {
@@ -36,29 +45,67 @@ export default class Livestream extends Component {
     );
   }
 
+  distanceBetween = () => {
+    //dist=√((y2-y1)^2 + (x2-x1)^2);
+    //from current position
+    ltd = this.state.latitude;
+    lng = this.state.longitude;
+
+    distMtrs = geolib.getDistanceSimple(
+      { latitude: -1.216929, longitude: 36.894342 },
+      { latitude: ltd, longitude: lng }
+    );
+
+    distKm = geolib.convertUnit("km", distMtrs, 2);
+
+    alert(
+      "selected location is about " +
+        distKm +
+        " Km" +
+        " from your current location"
+    );
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <MapView
-          provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-          style={styles.map}
-          region={{
-            latitude: this.state.latitude,
-            longitude: this.state.longitude,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121
-          }}
-        >
-          <MapView.Marker coordinate={this.state} />
-          <MapView.Marker
-            coordinate={{
-              latitude: -1.211507,
-              longitude: 36.903822
-            }}
-            title="Party"
-            description="party"
-          />
-        </MapView>
+        <View style={styles.container}>
+          {this.state.latitude && this.state.longitude ? (
+            <MapView
+              provider={PROVIDER_GOOGLE}
+              style={styles.map}
+              region={{
+                latitude: this.state.latitude,
+                longitude: this.state.longitude,
+                latitudeDelta: 0.015,
+                longitudeDelta: 0.0121
+              }}
+            >
+              <MapView.Marker coordinate={this.state} />
+              <MapView.Marker
+                coordinate={{
+                  latitude: -1.211507,
+                  longitude: 36.903822
+                }}
+                title="Party"
+                description="party"
+              />
+            </MapView>
+          ) : (
+            <View style={styles.alert}>
+              <Text style={styles.buttonText}>We can't find you</Text>
+            </View>
+          )}
+        </View>
+
+        <View style={styles.controlCont}>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={this.distanceBetween}
+          >
+            <Text style={styles.buttonText}>Go Live</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -66,9 +113,9 @@ export default class Livestream extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
-    height: 400,
-    width: 400,
+    flex: 1,
+    height: mapHeight,
+    width: maxWidth,
     justifyContent: "flex-end",
     alignItems: "center"
   },
@@ -93,7 +140,7 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,0.7)"
   },
   buttonContainer: {
-    width: 250,
+    width: 100,
     backgroundColor: "#92ca2c",
     paddingVertical: 5,
     borderRadius: 10,
@@ -121,5 +168,17 @@ const styles = StyleSheet.create({
     color: "yellow",
     fontSize: 16,
     fontWeight: "500"
+  },
+  controlCont: {
+    height: controlsContHeight,
+    width: maxWidth,
+    justifyContent: "flex-end"
+  },
+  alert: {
+    height: 50,
+    width: 400,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
