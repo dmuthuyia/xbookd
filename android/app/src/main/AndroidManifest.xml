@@ -23,7 +23,7 @@
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
       <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyArZcCJg0aJANm4I7cX5THyReXQ9yLeZuY"/>
+        android:value=""/>
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
