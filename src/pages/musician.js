@@ -89,7 +89,8 @@ export default class Musician extends Component {
         <FlatList
           data={this.state.dataSource}
           renderItem={this.renderItem}
-          keyExtractor={(item, index) => index}
+          //keyExtractor={(item, index) => "list-item-${index}"}
+          keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={this.renderSeparator}
         />
       </View>

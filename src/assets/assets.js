@@ -14,5 +14,6 @@ export default {
   places1: require("./images/icons8-region-48.png"),
   calendar1: require("./images/icons8-schedule-48.png"),
   settings1: require("./images/icons8-tune-48.png"),
-  about1: require("./images/icons8-about-48.png")
+  about1: require("./images/icons8-about-48.png"),
+  boukdLive: require("./images/boukdLive.png")
 };

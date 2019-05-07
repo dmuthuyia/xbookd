@@ -10,6 +10,7 @@
     "geolib": "^2.0.24",
     "react": "16.8.3",
     "react-native": "0.59.4",
+    "react-native-camera": "^2.6.0",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-maps": "^0.24.2",
     "react-native-router-flux": "^4.0.6",

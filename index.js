@@ -7,10 +7,10 @@ import { AppRegistry } from "react-native";
 import App from "./App";
 //import App from "./src/heyj/App";
 
-//import Livestream from "./src/pages/livestream";
+import Camy from "./src/pages/camy";
 //import Book from "./src/pages/book";
 //import App2 from "./src/pages/app2/app2";
 
 import { name as appName } from "./app.json";
 
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => Camy);
