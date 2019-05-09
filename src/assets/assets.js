@@ -15,5 +15,7 @@ export default {
   calendar1: require("./images/icons8-schedule-48.png"),
   settings1: require("./images/icons8-tune-48.png"),
   about1: require("./images/icons8-about-48.png"),
-  boukdLive: require("./images/boukdLive.png")
+  boukdLive: require("./images/boukdLive.png"),
+  bkdbtnset: require("./images/bkdbtnset.png"),
+  bkdset: require("./images/bkdset.png")
 };

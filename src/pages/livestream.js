@@ -15,11 +15,12 @@ import {
 import { createStackNavigator } from "react-navigation";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import geolib from "geolib";
+import Buttn from "../components/buttn";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 
-const mapHeight = (90 * HEIGHT) / 100;
+const mapHeight = (100 * HEIGHT) / 100;
 const controlsContHeight = (10 * HEIGHT) / 100;
 const maxWidth = WIDTH;
 
@@ -96,15 +97,9 @@ export default class Livestream extends Component {
               <Text style={styles.buttonText}>We can't find you</Text>
             </View>
           )}
-        </View>
-
-        <View style={styles.controlCont}>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={this.distanceBetween}
-          >
-            <Text style={styles.buttonText}>Go Live</Text>
-          </TouchableOpacity>
+          <View style={styles.buttn}>
+            <Buttn />
+          </View>
         </View>
       </View>
     );
@@ -180,5 +175,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  buttn: {
+    width: maxWidth
   }
 });

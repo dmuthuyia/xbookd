@@ -8,69 +8,14 @@ import {
   StyleSheet,
   Text,
   View,
+  StatusBar,
   TextInput,
-  TouchableOpacity,
-  Keyboard
+  TouchableOpacity
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
 import Logo from "../components/logo";
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userEmail: "",
-      userPassword: "",
-      loginError: ""
-    };
-  }
-
-  login = () => {
-    const { userEmail, userPassword } = this.state;
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (userEmail == "") {
-      alert("Please enter Email address");
-      //this.setState({ loginError: "Please enter Email address" });
-      //alert(this.state.loginError);
-    } else if (reg.test(userEmail) === false) {
-      alert("Email is Not Correct");
-      //this.setState({ loginError: "Email is Not Correct" });
-      //alert(this.state.loginError);
-      return false;
-    } else if (userPassword == "") {
-      alert("Please enter password");
-      //this.setState({ loginError: "Please enter password" });
-      //alert(this.state.loginError);
-    } else {
-      fetch("https://infohtechict.co.ke/apps/boukd//login.php", {
-        method: "post",
-        header: {
-          Accept: "application/json",
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({
-          // we will pass our input data to server
-          email: userEmail,
-          password: userPassword
-        })
-      })
-        .then(response => response.json())
-        .then(responseJson => {
-          if (responseJson == "ok") {
-            // redirect to Dashboard
-            alert("Successfully Login");
-            this.props.navigation.navigate("Dashboard");
-          } else {
-            alert("Wrong Login Details");
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
-
-    Keyboard.dismiss();
-  };
   render() {
     return (
       <View style={styles.container}>
@@ -78,11 +23,11 @@ export default class Login extends Component {
         <View style={styles.container}>
           <TextInput
             style={styles.inputBox}
-            placeholder="Enter email"
+            placeholder="Enter username/email"
             placeholderTextColor="rgba(255,255,255,0.8)"
             keyboardType="email-address"
             returnKeyType="next"
-            onChangeText={userEmail => this.setState({ userEmail })}
+            autoCorrect={false}
             onSubmitEditing={() => this.refs.txtPassword.focus()}
           />
           <TextInput
@@ -92,10 +37,13 @@ export default class Login extends Component {
             returnKeyType="go"
             secureTextEntry={true}
             autoCorrect={false}
-            onChangeText={userPassword => this.setState({ userPassword })}
+            ref={"txtPassword"}
           />
           <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText} onPress={this.login}>
+            <Text
+              style={styles.buttonText}
+              onPress={() => this.props.navigation.navigate("Dashboard")}
+            >
               Sign in
             </Text>
           </TouchableOpacity>
@@ -135,8 +83,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize: 16
+    paddingHorizontal: 10
   },
   logoText: {
     marginVertical: 15,
