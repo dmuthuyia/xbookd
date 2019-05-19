@@ -7,7 +7,8 @@ import {
   StatusBar,
   Dimensions,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
 import Assets from "../assets/assets";
@@ -32,9 +33,7 @@ export default class MenuDrawer extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.drawerHeader}>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("Welcome")}
-          >
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <Image
               style={{ width: 40, height: 40, margin: 5 }}
               source={Assets.boukdHome2}
@@ -43,58 +42,66 @@ export default class MenuDrawer extends React.Component {
           <Text style={styles.headerText}>Boukd: "hire my art"</Text>
         </View>
         <ScrollView style={styles.scroller}>
-          <View style={styles.topLinks}>
-            <View style={styles.profile}>
-              <View style={styles.imgView}>
-                <Image style={styles.profilePicture} source={Assets.missing} />
+          <ImageBackground
+            source={Assets.bg2}
+            style={{ width: "100%", height: "100%" }}
+          >
+            <View style={styles.topLinks}>
+              <View style={styles.profile}>
+                <View style={styles.imgView}>
+                  <Image
+                    style={styles.profilePicture}
+                    source={Assets.missing}
+                  />
+                </View>
+                <View style={styles.profileText}>
+                  <Text style={styles.name}>Boukd</Text>
+                </View>
               </View>
-              <View style={styles.profileText}>
-                <Text style={styles.name}>Boukd</Text>
+            </View>
+            <View style={styles.bottomLinks}>
+              <View style={styles.menuItem}>
+                <Image
+                  style={styles.img}
+                  source={Assets.profile1}
+                  style={styles.drawerico}
+                />
+                {this.navLink("Profile", "Profile")}
+              </View>
+              <View style={styles.menuItem}>
+                <Image
+                  style={styles.img}
+                  source={Assets.places1}
+                  style={styles.drawerico}
+                />
+                {this.navLink("Places", "Locals")}
+              </View>
+              <View style={styles.menuItem}>
+                <Image
+                  style={styles.img}
+                  source={Assets.calendar1}
+                  style={styles.drawerico}
+                />
+                {this.navLink("Calendar", "Calendar")}
+              </View>
+              <View style={styles.menuItem}>
+                <Image
+                  style={styles.img}
+                  source={Assets.settings1}
+                  style={styles.drawerico}
+                />
+                {this.navLink("Settings", "Settings")}
+              </View>
+              <View style={styles.menuItem}>
+                <Image
+                  style={styles.img}
+                  source={Assets.about1}
+                  style={styles.drawerico}
+                />
+                {this.navLink("AboutUs", "About")}
               </View>
             </View>
-          </View>
-          <View style={styles.bottomLinks}>
-            <View style={styles.menuItem}>
-              <Image
-                style={styles.img}
-                source={Assets.profile1}
-                style={styles.drawerico}
-              />
-              {this.navLink("Profile", "Profile")}
-            </View>
-            <View style={styles.menuItem}>
-              <Image
-                style={styles.img}
-                source={Assets.places1}
-                style={styles.drawerico}
-              />
-              {this.navLink("Places", "Locals")}
-            </View>
-            <View style={styles.menuItem}>
-              <Image
-                style={styles.img}
-                source={Assets.calendar1}
-                style={styles.drawerico}
-              />
-              {this.navLink("Calendar", "Calendar")}
-            </View>
-            <View style={styles.menuItem}>
-              <Image
-                style={styles.img}
-                source={Assets.settings1}
-                style={styles.drawerico}
-              />
-              {this.navLink("Settings", "Settings")}
-            </View>
-            <View style={styles.menuItem}>
-              <Image
-                style={styles.img}
-                source={Assets.about1}
-                style={styles.drawerico}
-              />
-              {this.navLink("AboutUs", "About")}
-            </View>
-          </View>
+          </ImageBackground>
         </ScrollView>
         <View style={styles.footer}>
           <Text style={styles.description}>Boukd © 2019</Text>

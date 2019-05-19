@@ -14,9 +14,9 @@ import {
   Animated,
   Image
 } from "react-native";
+
 import Assets from "../assets/assets";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-//import { transform } from "@babel/core";
 
 export default class Buttn extends Component {
   state = {
@@ -30,6 +30,10 @@ export default class Buttn extends Component {
       duration: 200
     }).start();
     this._open = !this._open;
+  };
+
+  alt = () => {
+    alert("hello");
   };
 
   render() {
@@ -108,11 +112,14 @@ export default class Buttn extends Component {
             <Animated.Text style={[styles.label, labelStyle]}>
               Live
             </Animated.Text>
-
-            <Image
-              source={Assets.boukdLive}
-              style={{ height: 30, width: 30 }}
-            />
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("lsLive")}
+            >
+              <Image
+                source={Assets.boukdLive}
+                style={{ height: 30, width: 30 }}
+              />
+            </TouchableOpacity>
           </Animated.View>
         </TouchableWithoutFeedback>
 
@@ -121,7 +128,11 @@ export default class Buttn extends Component {
             <Animated.Text style={[styles.label, labelStyle]}>
               Photo
             </Animated.Text>
-            <Icon name="google-photos" size={40} color="orange" />
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("lsPhoto")}
+            >
+              <Icon name="google-photos" size={40} color="orange" />
+            </TouchableOpacity>
           </Animated.View>
         </TouchableWithoutFeedback>
 
@@ -130,7 +141,11 @@ export default class Buttn extends Component {
             <Animated.Text style={[styles.label, labelStyle]}>
               Watch
             </Animated.Text>
-            <Icon name="youtube-tv" size={40} color="red" />
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("lsWatch")}
+            >
+              <Icon name="youtube-tv" size={40} color="red" />
+            </TouchableOpacity>
           </Animated.View>
         </TouchableWithoutFeedback>
 

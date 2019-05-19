@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Platform, Dimensions } from "react-native";
+import { StyleSheet, View } from "react-native";
+
 import {
   createSwitchNavigator,
   createAppContainer,
@@ -11,19 +11,7 @@ import {
 
 import BoukdLogin from "./login";
 import BoukdSignup from "./signup";
-import Book from "./book";
-import WhereAt from "./whereat";
-import WhipUp from "./whipup";
-import Livestream from "./livestream";
-import Assets from "../assets/assets";
-
-import Profile from "./profile";
-import Places from "./places";
-import Calendar from "./calendar";
-import Settings from "./settings";
-import AboutUs from "./about";
-
-import MenuDrawer from "./MenuDrawer";
+import Dashboard from "./dashboard";
 
 export default class Welcome extends Component {
   render() {
@@ -35,168 +23,11 @@ export default class Welcome extends Component {
   }
 }
 
-class DashboardScreen extends Component {
-  render() {
-    return (
-      <View style={styles.MainContainer}>
-        <View style={{ marginBottom: 20 }}>
-          <Text style={styles.TextStyle}> Dashboard </Text>
-        </View>
-      </View>
-    );
-  }
-}
-
-class BookWrap extends Component {
-  render() {
-    return (
-      <View style={styles.MainContainer}>
-        <Book />
-      </View>
-    );
-  }
-}
-
-class LivestreamWrap extends Component {
-  render() {
-    return (
-      <View style={styles.MainContainer}>
-        <Livestream />
-      </View>
-    );
-  }
-}
-
-class WhereAtWrap extends Component {
-  render() {
-    return (
-      <View style={styles.MainContainer}>
-        <WhereAt />
-      </View>
-    );
-  }
-}
-
-class whipUpWrap extends Component {
-  render() {
-    return (
-      <View style={styles.MainContainer}>
-        <WhipUp />
-      </View>
-    );
-  }
-}
-
 //--------NAVIGATORS ---------------------------------------------------
-
-//--------TAB NAVIGATOR 1 ---------------------------------------------------
-
-const DashboardTabNavigator = createBottomTabNavigator(
-  {
-    Book: { screen: BookWrap },
-    "Where At": { screen: WhereAtWrap },
-    Livestream: { screen: LivestreamWrap },
-    "whip up": { screen: whipUpWrap }
-  },
-  {
-    navigationOptions: ({ navigation }) => {
-      const { routeName } = navigation.state.routes[navigation.state.index];
-      return {
-        headerTitle: routeName,
-        headerStyle: {
-          backgroundColor: "blue"
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      };
-    }
-  }
-);
-
-//--------STACK NAVIGATOR 1 ---------------------------------------------------
-
-const DashboardStackNavigator = createStackNavigator(
-  {
-    DashboardTabNavigator: DashboardTabNavigator
-  },
-  {
-    defaultNavigationOptions: ({ navigation }) => {
-      return {
-        headerLeft: (
-          <View>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <Image
-                style={{ width: 40, height: 40 }}
-                source={Assets.bkdmenu3}
-                name="ios-list"
-                size={30}
-              />
-            </TouchableOpacity>
-          </View>
-        )
-      };
-    }
-  }
-);
-
-//--------DRAWER NAVIGATOR 1 ---------------------------------------------------
-
-const BoukedAppDrawerNavigator = createDrawerNavigator({
-  Dashboard: {
-    /*screen: DashboardTabNavigator*/
-    screen: DashboardStackNavigator
-  },
-  Profile: { screen: WhereAtWrap },
-  Locals: { screen: LivestreamWrap },
-  calendar: { screen: whipUpWrap },
-  Settings: { screen: whipUpWrap },
-  "About us": { screen: whipUpWrap }
-});
-
-//--------DRAWER NAVIGATOR 2 ---------------------------------------------------
-
-const WIDTH = Dimensions.get("window").width;
-
-const DrawerConfig = {
-  drawerWidth: WIDTH * 0.83,
-  contentComponent: ({ navigation }) => {
-    return <MenuDrawer navigation={navigation} />;
-  }
-};
-
-const DrawerNavigator = createDrawerNavigator(
-  {
-    Dashboard: {
-      /*screen: DashboardTabNavigator*/
-      screen: DashboardStackNavigator
-    },
-
-    Profile: {
-      screen: Profile
-    },
-    Places: {
-      screen: Places
-    },
-    Calendar: {
-      screen: Calendar
-    },
-    Settings: {
-      screen: Settings
-    },
-    AboutUs: {
-      screen: AboutUs
-    }
-  },
-  DrawerConfig
-);
-
-//--------SWITCH NAVIGATOR 1 ---------------------------------------------------
 
 const boukdwitchNavigator = createSwitchNavigator({
   Login: { screen: BoukdLogin },
-  Dashboard: { screen: DrawerNavigator },
+  Dashboard: { screen: Dashboard },
   Signup: { screen: BoukdSignup }
 });
 

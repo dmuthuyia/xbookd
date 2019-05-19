@@ -13,10 +13,28 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Image,
-  ToastAndroid
+  ToastAndroid,
+  ScrollView,
+  ImageBackground
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
-//import console = require("console");
+import Assets from "../assets/assets";
+
+const formatData = (data, numColumns) => {
+  const numberOfFullRows = Math.floor(data.length / numColumns);
+  let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns;
+
+  while (
+    numberOfElementsLastRow !== numColumns &&
+    numberOfElementsLastRow !== 0
+  ) {
+    data.push({ key: `blank-${numColumns}`, empty: true });
+    numberOfElementsLastRow = numberOfElementsLastRow + 1;
+  }
+
+  return data;
+};
+const numColumns = 3;
 
 export default class Musician extends Component {
   constructor(props) {
@@ -28,32 +46,51 @@ export default class Musician extends Component {
   }
 
   renderItem = ({ item }) => {
+    //if (item.empty === true) {
+    //return <View style={styles.invisibleItem} />;
+    //}
     return (
       <TouchableOpacity
-        style={{ flex: 1, flexDirection: "row", marginBottom: 3 }}
+        style={{ flex: 1, marginBottom: 3 }}
         onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
       >
-        <Image
-          style={{ width: 60, height: 60, margin: 5 }}
-          source={{
-            uri: "https://infohtechict.co.ke/apps/boukd/images/" + item.mypic
-          }}
-        />
         <View
           style={{
-            flex: 1,
-            justifyContent: "center",
-            borderBottomEndRadius: 20,
-            marginRight: 5,
-            backgroundColor: "#F6F1F8"
+            margin: 3,
+            height: 150,
+            backgroundColor: "#FFEFD5",
+            opacity: 0.9,
+            borderRadius: 10
           }}
         >
-          <Text style={{ fontSize: 18, color: "blue", marginBottom: 1 }}>
-            User name: {item.UserName}
-          </Text>
-          <Text style={{ fontSize: 14, color: "green" }}>
-            email: {item.email}
-          </Text>
+          <View style={{ flex: 1, padding: 3 }}>
+            <Image
+              style={{ flex: 1 }}
+              resizeMode="cover"
+              source={{
+                uri:
+                  "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+                  item.skillprofile_img
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                color: "blue",
+                marginBottom: 1
+              }}
+            >
+              {item.UserName}
+            </Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -66,7 +103,7 @@ export default class Musician extends Component {
   };
 
   componentDidMount() {
-    const url = "https://infohtechict.co.ke/apps/boukd/users.php";
+    const url = "https://infohtechict.co.ke/apps/boukd/musician.php";
     fetch(url)
       .then(response => response.json())
       .then(responseJson => {
@@ -85,14 +122,17 @@ export default class Musician extends Component {
         <ActivityIndicator size="large" color="#330066" animating />
       </View>
     ) : (
-      <View style={styles.container}>
-        <FlatList
-          data={this.state.dataSource}
-          renderItem={this.renderItem}
-          //keyExtractor={(item, index) => "list-item-${index}"}
-          keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={this.renderSeparator}
-        />
+      <View style={[styles.container]}>
+        <ScrollView>
+          <FlatList
+            data={formatData(this.state.dataSource, numColumns)}
+            renderItem={this.renderItem}
+            //keyExtractor={(item, index) => "list-item-${index}"}
+            keyExtractor={(item, index) => index.toString()}
+            //ItemSeparatorComponent={this.renderSeparator}
+            numColumns={numColumns}
+          />
+        </ScrollView>
       </View>
     );
   }
@@ -100,54 +140,10 @@ export default class Musician extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#d6adee",
     flex: 1
   },
-  inputBox: {
-    width: 250,
-    height: 40,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    color: "#fff",
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize: 16
-  },
-  logoText: {
-    marginVertical: 15,
-    fontSize: 18,
-    color: "rgba(255,255,255,0.7)"
-  },
-  buttonContainer: {
-    width: 250,
-    backgroundColor: "#92ca2c",
-    paddingVertical: 5,
-    borderRadius: 10,
-    borderColor: "#ffffff",
-    borderWidth: 2
-  },
-  buttonText: {
-    textAlign: "center",
-    color: "rgb(32, 53, 70)",
-    fontWeight: "bold",
-    fontSize: 18
-  },
-  signupTextCont: {
-    flex: 1,
-    alignItems: "flex-end",
-    justifyContent: "center",
-    paddingVertical: 16,
-    flexDirection: "row"
-  },
-  signupText: {
-    color: "rgba(255,255,255,0.7)",
-    fontSize: 16
-  },
-  signupButton: {
-    color: "yellow",
-    fontSize: 16,
-    fontWeight: "500"
+  invisibleItem: {
+    backgroundColor: "transparent"
   }
 });

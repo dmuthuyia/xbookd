@@ -22,7 +22,6 @@ const Drawer = createMaterialTopTabNavigator({
   Ho: { screen: Musician },
   DJ: { screen: DJ },
   Da: { screen: Dancer },
-  DJ: { screen: DJ },
   Mc: { screen: Mc },
   Ac: { screen: Actor },
   Po: { screen: Poet },

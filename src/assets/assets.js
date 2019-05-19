@@ -17,5 +17,11 @@ export default {
   about1: require("./images/icons8-about-48.png"),
   boukdLive: require("./images/boukdLive.png"),
   bkdbtnset: require("./images/bkdbtnset.png"),
-  bkdset: require("./images/bkdset.png")
+  bkdset: require("./images/bkdset.png"),
+  bg: require("./images/bg.png"),
+  bg2: require("./images/bg.png"),
+  bg3: require("./images/bg.png"),
+  bg4: require("./images/bg.png"),
+  bg5: require("./images/bg.png"),
+  bg6: require("./images/bg.png")
 };

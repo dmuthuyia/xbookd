@@ -10,12 +10,18 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Animated,
+  Image
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import geolib from "geolib";
-import Lsnavigator from "../components/lsnavigator";
+import Buttn from "./buttn";
+
+import Assets from "../assets/assets";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
@@ -29,7 +35,8 @@ export default class Livestream extends Component {
     super(props);
     this.state = {
       latitude: 0,
-      longitude: 0
+      longitude: 0,
+      animation: new Animated.Value(0)
     };
   }
   componentDidMount() {
@@ -67,7 +74,85 @@ export default class Livestream extends Component {
     );
   };
 
+  toggleOpen = () => {
+    const toValue = this._open ? 0 : 1;
+    Animated.timing(this.state.animation, {
+      toValue,
+      duration: 200
+    }).start();
+    this._open = !this._open;
+  };
+
+  alt = () => {
+    alert("hello");
+  };
+
   render() {
+    const bgstyle = {
+      transform: [
+        {
+          scale: this.state.animation.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 30]
+          })
+        }
+      ]
+    };
+
+    const watchStyle = {
+      transform: [
+        { scale: this.state.animation },
+        {
+          translateY: this.state.animation.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, -70]
+          })
+        }
+      ]
+    };
+
+    const photoStyle = {
+      transform: [
+        { scale: this.state.animation },
+        {
+          translateY: this.state.animation.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, -140]
+          })
+        }
+      ]
+    };
+
+    const liveStyle = {
+      transform: [
+        { scale: this.state.animation },
+        {
+          translateY: this.state.animation.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, -210]
+          })
+        }
+      ]
+    };
+
+    const labelPositionInterpolate = this.state.animation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, -60]
+    });
+
+    const opacityInterpolate = this.state.animation.interpolate({
+      inputRange: [0, 0.8, 1],
+      outputRange: [0, 0, 1]
+    });
+
+    const labelStyle = {
+      opacity: opacityInterpolate,
+      transform: [
+        {
+          translateX: labelPositionInterpolate
+        }
+      ]
+    };
     return (
       <View style={styles.container}>
         <View style={styles.container}>
@@ -97,9 +182,6 @@ export default class Livestream extends Component {
               <Text style={styles.buttonText}>We can't find you</Text>
             </View>
           )}
-          <View style={styles.lvmenu}>
-            <Lsnavigator />
-          </View>
         </View>
       </View>
     );
@@ -117,52 +199,48 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject
   },
-  inputBox: {
-    width: 250,
-    height: 40,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    color: "#fff",
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize: 16
+  containerMenu: {
+    flex: 1
   },
-  logoText: {
-    marginVertical: 15,
-    fontSize: 18,
-    color: "rgba(255,255,255,0.7)"
+  background: {
+    backgroundColor: "black",
+    position: "absolute",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    bottom: 20,
+    right: 20,
+    opacity: 0.4
   },
-  buttonContainer: {
-    width: 100,
-    backgroundColor: "#92ca2c",
-    paddingVertical: 5,
-    borderRadius: 10,
-    borderColor: "#ffffff",
-    borderWidth: 2
-  },
-  buttonText: {
-    textAlign: "center",
-    color: "rgb(32, 53, 70)",
-    fontWeight: "bold",
-    fontSize: 18
-  },
-  signupTextCont: {
-    flex: 1,
-    alignItems: "flex-end",
+  button: {
+    width: 60,
+    height: 60,
+    alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 16,
-    flexDirection: "row"
+    shadowColor: "#333",
+    shadowOpacity: 0.1,
+    shadowOffset: { x: 2, y: 0 },
+    shadowRadius: 2,
+    borderRadius: 30,
+    position: "absolute",
+    bottom: 20,
+    right: 20
   },
-  signupText: {
-    color: "rgba(255,255,255,0.7)",
-    fontSize: 16
+  pay: {
+    backgroundColor: "blue"
   },
-  signupButton: {
+  other: {
+    backgroundColor: "purple"
+  },
+  payText: {
+    color: "#fff"
+  },
+  label: {
     color: "yellow",
-    fontSize: 16,
-    fontWeight: "500"
+    position: "absolute",
+    fontSize: 18,
+    fontWeight: "bold",
+    backgroundColor: "transparent"
   },
   controlCont: {
     height: controlsContHeight,

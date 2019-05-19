@@ -10,7 +10,7 @@ import App from "./App";
 //import Livestream from "./src/pages/livestream";
 //import Book from "./src/pages/book";
 //import App2 from "./src/pages/app2/app2";
-//import Buttn from "./src/components/buttn";
+//import Lsnavigator from "./src/components/lsnavigator";
 
 import { name as appName } from "./app.json";
 

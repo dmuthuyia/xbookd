@@ -8,16 +8,91 @@ import {
   StyleSheet,
   Text,
   View,
+  FlatList,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator,
+  Image,
+  ToastAndroid
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
+//import console = require("console");
 
 export default class WhipUp extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataSource: [],
+      isLoading: true
+    };
+  }
+
+  renderItem = ({ item }) => {
     return (
+      <TouchableOpacity
+        style={{ flex: 1, flexDirection: "row", marginBottom: 3 }}
+        onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
+      >
+        <Image
+          style={{ width: 60, height: 60, margin: 5 }}
+          source={{
+            uri: "https://infohtechict.co.ke/apps/boukd/images/" + item.mypic
+          }}
+        />
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            borderBottomEndRadius: 20,
+            marginRight: 5,
+            backgroundColor: "#F6F1F8"
+          }}
+        >
+          <Text style={{ fontSize: 18, color: "blue", marginBottom: 1 }}>
+            User name: {item.UserName}
+          </Text>
+          <Text style={{ fontSize: 14, color: "green" }}>
+            email: {item.email}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  renderSeparator = () => {
+    return (
+      <View style={{ height: 1, width: "100%", backgroundColor: "gray" }} />
+    );
+  };
+
+  componentDidMount() {
+    const url = "https://infohtechict.co.ke/apps/boukd/users.php";
+    fetch(url)
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          dataSource: responseJson,
+          isLoading: false
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  render() {
+    return this.state.isLoading ? (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#330066" animating />
+      </View>
+    ) : (
       <View style={styles.container}>
-        <Text>WhereAt</Text>
+        <FlatList
+          data={this.state.dataSource}
+          renderItem={this.renderItem}
+          //keyExtractor={(item, index) => "list-item-${index}"}
+          keyExtractor={(item, index) => index.toString()}
+          ItemSeparatorComponent={this.renderSeparator}
+        />
       </View>
     );
   }
@@ -25,15 +100,8 @@ export default class WhipUp extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "blue",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  container: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    backgroundColor: "#ffffff",
+    flex: 1
   },
   inputBox: {
     width: 250,
