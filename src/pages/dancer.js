@@ -140,8 +140,9 @@ export default class Dancer extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#adb6ee",
-    flex: 1
+    backgroundColor: "#d6adee",
+    flex: 1,
+    paddingTop: 5,
   },
   invisibleItem: {
     backgroundColor: "transparent"

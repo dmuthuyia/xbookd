@@ -141,7 +141,8 @@ export default class Musician extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#d6adee",
-    flex: 1
+    flex: 1,
+    paddingTop: 5,
   },
   invisibleItem: {
     backgroundColor: "transparent"

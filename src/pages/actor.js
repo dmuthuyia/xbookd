@@ -140,8 +140,9 @@ export default class Actor extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#adceee",
-    flex: 1
+    backgroundColor: "#d6adee",
+    flex: 1,
+    paddingTop: 5,
   },
   invisibleItem: {
     backgroundColor: "transparent"

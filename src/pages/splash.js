@@ -1,11 +1,23 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Animated, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Animated,
+  Dimensions,
+  AsyncStorage
+} from "react-native";
+
 import Assets from "../assets/assets";
 
 const h = Dimensions.get("window").height;
 const height = h * 2;
 
-export default class SplashsScreen2 extends Component {
+export default class SplashScreen extends Component {
+  constructor(props) {
+    super(props);
+    //this._loadData();
+  }
   circle = new Animated.Value(0);
   logo = new Animated.Value(0);
   title = new Animated.Value(0);
@@ -34,6 +46,12 @@ export default class SplashsScreen2 extends Component {
       })
     ]).start();
   }
+
+  _loadData = async () => {
+    const isLoggedIn = 1;
+    //await AsyncStorage.getItem("isLogged");
+    this.props.navigation.navigate(isLoggedIn !== 1 ? "Login" : "Dashboard");
+  };
 
   render() {
     const translateY = this.circle.interpolate({
@@ -76,6 +94,11 @@ export default class SplashsScreen2 extends Component {
         <Animated.Text style={{ color: "#fff", fontSize: 12, opacity }}>
           www.boukd.com
         </Animated.Text>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText} onPress={this._loadData}>
+            ENTER
+          </Text>
+        </View>
       </View>
     );
   }
@@ -117,5 +140,19 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: "#fff"
+  },
+  buttonCont: {
+    backgroundColor: "red"
+  },
+  buttonContainer: {
+    backgroundColor: "#4c1037",
+    paddingVertical: 5,
+    textAlign: "center"
+  },
+  buttonText: {
+    textAlign: "center",
+    color: "#ffffff",
+    fontWeight: "bold",
+    fontSize: 18
   }
 });

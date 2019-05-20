@@ -134,8 +134,9 @@ export default class Dj extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#c2adee",
-    flex: 1
+    backgroundColor: "#d6adee",
+    flex: 1,
+    paddingTop: 5,
   },
   invisibleItem: {
     backgroundColor: "transparent"

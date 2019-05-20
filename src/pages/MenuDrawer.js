@@ -8,11 +8,11 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  AsyncStorage
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
 import Assets from "../assets/assets";
-import Welcome from "./welcome";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
@@ -27,6 +27,21 @@ export default class MenuDrawer extends React.Component {
         <Text style={styles.link}>{text}</Text>
       </TouchableOpacity>
     );
+  }
+
+  logoutUser = async () => {
+    //console.log('Logout clicked')
+    alert("clicked")
+
+      try {
+        await AsyncStorage.clear();
+        this.props.logout();
+        this.props.navigation.closeDrawer();
+        this.props.navigation.navigate('Login');
+      } catch (error) {
+         //console.log("Error in clearing AsyncStorage", error);
+         alert("error")
+      }
   }
 
   render() {
@@ -74,7 +89,15 @@ export default class MenuDrawer extends React.Component {
                   source={Assets.places1}
                   style={styles.drawerico}
                 />
-                {this.navLink("Places", "Locals")}
+                {this.navLink("Places", "Places")}
+              </View>
+              <View style={styles.menuItem}>
+                <Image
+                  style={styles.img}
+                  source={Assets.places1}
+                  style={styles.drawerico}
+                />
+                {this.navLink("Tickets", "Buy tickets")}
               </View>
               <View style={styles.menuItem}>
                 <Image
@@ -100,6 +123,17 @@ export default class MenuDrawer extends React.Component {
                 />
                 {this.navLink("AboutUs", "About")}
               </View>
+              <View style={styles.menuItem}>
+                <Image
+                  style={styles.img}
+                  source={Assets.places1}
+                  style={styles.drawerico}
+                />
+                <TouchableOpacity onPress={this.logoutUser}>
+                <View style={styles.menuItem}><Text>Logout</Text></View>
+                </TouchableOpacity>
+                
+              </View>
             </View>
           </ImageBackground>
         </ScrollView>
@@ -112,6 +146,9 @@ export default class MenuDrawer extends React.Component {
   }
 }
 
+
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -120,7 +157,7 @@ const styles = StyleSheet.create({
   scroller: {
     flex: 1,
     backgroundColor: "purple",
-    color: "white"
+    color: "red"
   },
   profile: {
     flex: 1,

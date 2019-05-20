@@ -140,8 +140,9 @@ export default class Poet extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#add9ee",
-    flex: 1
+    backgroundColor: "#d6adee",
+    flex: 1,
+    paddingTop: 5,
   },
   invisibleItem: {
     backgroundColor: "transparent"

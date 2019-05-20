@@ -13,12 +13,20 @@ import {
   Keyboard,
   AsyncStorage
 } from "react-native";
-import { createStackNavigator } from "react-navigation";
+import {
+  createSwitchNavigator,
+  createAppContainer,
+  createDrawerNavigator,
+  createBottomTabNavigator,
+  createStackNavigator
+} from "react-navigation";
+
 import Logo from "../components/logo";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       userEmail: "",
       userPassword: "",
@@ -26,7 +34,7 @@ export default class Login extends Component {
     };
   }
 
-  login = () => {
+  _login = async () => {
     const { userEmail, userPassword } = this.state;
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (userEmail == "") {
@@ -60,6 +68,7 @@ export default class Login extends Component {
           if (responseJson == "ok") {
             // redirect to Dashboard
             alert("Successfully Login");
+            //await AsyncStorage.setItem("isLoggedIn", "1");
             this.props.navigation.navigate("Dashboard");
           } else {
             alert("Wrong Login Details");
@@ -96,7 +105,7 @@ export default class Login extends Component {
             onChangeText={userPassword => this.setState({ userPassword })}
           />
           <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText} onPress={this.login}>
+            <Text style={styles.buttonText} onPress={this._login}>
               Sign in
             </Text>
           </TouchableOpacity>

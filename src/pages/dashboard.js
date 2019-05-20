@@ -33,6 +33,7 @@ import Places from "./places";
 import Calendar from "./calendar";
 import Settings from "./settings";
 import AboutUs from "./about";
+import Tickets from "./ticket";
 
 import MenuDrawer from "./MenuDrawer";
 
@@ -53,8 +54,20 @@ const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: "Book",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="youtube-tv" color={tintColor} size={24} />
-        )
+          <Image source={Assets.boukdbook1} style={{ height: 20, width: 20 }} />
+        ),
+        tabBarOptions: {
+          activeTintColor:'orange',
+          inactiveTintColor:'#D3D3D3',
+          style:{
+              backgroundColor:'#4c1037',
+              borderTopWidth:3,
+              borderTopColor:'#D3D3D3'
+          },
+          indicatorStyle: {
+              backgroundColor: 'red',
+          },
+        }
       }
     },
     WhereAt: {
@@ -62,8 +75,23 @@ const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: "Where At",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="youtube-tv" color={tintColor} size={24} />
-        )
+          <Image
+            source={Assets.boukdwhereat1}
+            style={{ height: 20, width: 20 }}
+          />
+        ),
+        tabBarOptions: {
+          activeTintColor:'orange',
+          inactiveTintColor:'#D3D3D3',
+          style:{
+              backgroundColor:'#4c1037',
+              borderTopWidth:3,
+              borderTopColor:'#D3D3D3'
+          },
+          indicatorStyle: {
+              backgroundColor: 'red',
+          },
+        }
       }
     },
     Livestream: {
@@ -72,7 +100,19 @@ const DashboardTabNavigator = createBottomTabNavigator(
         tabBarLabel: "Livestream",
         tabBarIcon: ({ tintColor }) => (
           <Image source={Assets.boukdLive} style={{ height: 20, width: 20 }} />
-        )
+        ),
+        tabBarOptions: {
+          activeTintColor:'orange',
+          inactiveTintColor:'#D3D3D3',
+          style:{
+              backgroundColor:'#4c1037',
+              borderTopWidth:3,
+              borderTopColor:'#4c1037'
+          },
+          indicatorStyle: {
+              backgroundColor: 'red',
+          },
+        }
       }
     },
     whipUp: {
@@ -80,8 +120,23 @@ const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: "whip up",
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="youtube-tv" color={tintColor} size={24} />
-        )
+          <Image
+            source={Assets.boukdwhipup1}
+            style={{ height: 20, width: 20 }}
+          />
+        ),
+        tabBarOptions: {
+          activeTintColor:'orange',
+          inactiveTintColor:'#D3D3D3',
+          style:{
+              backgroundColor:'#4c1037',
+              borderTopWidth:3,
+              borderTopColor:'#D3D3D3'
+          },
+          indicatorStyle: {
+              backgroundColor: 'red',
+          },
+        }
       }
     }
   },
@@ -150,6 +205,9 @@ const DrawerNavigator = createDrawerNavigator(
     },
     Places: {
       screen: Places
+    },
+    Tickets: {
+      screen: Tickets
     },
     Calendar: {
       screen: Calendar
@@ -274,5 +332,8 @@ const styles = StyleSheet.create({
     color: "yellow",
     fontSize: 16,
     fontWeight: "500"
+  },
+  btmtab: {
+    backgroundColor: "red",
   }
 });
