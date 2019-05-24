@@ -9,8 +9,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
-  AsyncStorage
+  Alert,
+  BackHandler
 } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import { createStackNavigator } from "react-navigation";
 import Assets from "../assets/assets";
 
@@ -29,20 +31,45 @@ export default class MenuDrawer extends React.Component {
     );
   }
 
-  logoutUser = async () => {
-    //console.log('Logout clicked')
-    alert("clicked")
-
-      try {
-        await AsyncStorage.clear();
-        this.props.logout();
-        this.props.navigation.closeDrawer();
-        this.props.navigation.navigate('Login');
-      } catch (error) {
-         //console.log("Error in clearing AsyncStorage", error);
-         alert("error")
-      }
+  componentWillMount() {
+    BackHandler.addEventListener("hardwareBackPress", this.backPressed);
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener("hardwareBackPress", this.backPressed);
+  }
+
+  userLogout = () => {
+    Alert.alert(
+      "Exit Bouk'd",
+      "Do you want to exit?",
+      [
+        { text: "No, go back", style: "cancel" },
+        { text: "Go to Login", onPress: this.toLogin },
+        { text: "Yes, Exit", onPress: this.toExit }
+      ],
+      { cancelable: false }
+    );
+    return true;
+  };
+
+  toLogin = async () => {
+    try {
+      await AsyncStorage.clear();
+      this.props.navigation.navigate("Login");
+    } catch (error) {
+      alert("error");
+    }
+  };
+
+  toExit = async () => {
+    try {
+      await AsyncStorage.clear();
+      BackHandler.exitApp();
+    } catch (error) {
+      alert("error");
+    }
+  };
 
   render() {
     return (
@@ -57,10 +84,7 @@ export default class MenuDrawer extends React.Component {
           <Text style={styles.headerText}>Boukd: "hire my art"</Text>
         </View>
         <ScrollView style={styles.scroller}>
-          <ImageBackground
-            source={Assets.bg2}
-            style={{ width: "100%", height: "100%" }}
-          >
+          <View style={{ backgroundColor: "red" }}>
             <View style={styles.topLinks}>
               <View style={styles.profile}>
                 <View style={styles.imgView}>
@@ -129,13 +153,12 @@ export default class MenuDrawer extends React.Component {
                   source={Assets.places1}
                   style={styles.drawerico}
                 />
-                <TouchableOpacity onPress={this.logoutUser}>
-                <View style={styles.menuItem}><Text>Logout</Text></View>
+                <TouchableOpacity onPress={this.userLogout}>
+                  <Text style={styles.link}>Logout</Text>
                 </TouchableOpacity>
-                
               </View>
             </View>
-          </ImageBackground>
+          </View>
         </ScrollView>
         <View style={styles.footer}>
           <Text style={styles.description}>Boukd © 2019</Text>
@@ -145,9 +168,6 @@ export default class MenuDrawer extends React.Component {
     );
   }
 }
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -195,7 +215,7 @@ const styles = StyleSheet.create({
   },
   bottomLinks: {
     flex: 1,
-    backgroundColor: "#F0F8FF",
+    backgroundColor: "#4c1037",
     paddingTop: 10,
     paddingBottom: 450
   },
@@ -205,7 +225,8 @@ const styles = StyleSheet.create({
     padding: 6,
     paddingLeft: 1,
     margin: 5,
-    textAlign: "left"
+    textAlign: "left",
+    color: "#cac0c0"
   },
   footer: {
     height: 50,
@@ -234,7 +255,8 @@ const styles = StyleSheet.create({
   menuItem: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    color: "white"
   },
   drawerHeader: {
     height: 50,

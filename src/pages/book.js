@@ -21,8 +21,8 @@ import Assets from "../assets/assets";
 
 const Drawer = createMaterialTopTabNavigator(
   {
-  Musician: { 
-    screen: Musician,
+    Musician: {
+      screen: Musician,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
@@ -31,46 +31,43 @@ const Drawer = createMaterialTopTabNavigator(
           />
         ),
         tabBarOptions: {
-          activeTintColor:'blue',
-          inactiveTintColor:'#D3D3D3',
+          activeTintColor: "blue",
+          inactiveTintColor: "#D3D3D3",
           showLabel: false,
-			    showIcon: true,
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopColor:'#D3D3D3'
+          showIcon: true,
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopColor: "#D3D3D3"
           },
           indicatorStyle: {
-              backgroundColor: 'orange',
-          },
+            backgroundColor: "orange"
+          }
         }
-      } 
-  },
-  Dj: { 
-    screen: DJ,
+      }
+    },
+    Dj: {
+      screen: DJ,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Image
-            source={Assets.djIcon1}
-            style={{ height: 30, width: 30 }}
-          />
+          <Image source={Assets.djIcon1} style={{ height: 30, width: 30 }} />
         ),
         tabBarOptions: {
-          activeTintColor:'blue',
-          inactiveTintColor:'#D3D3D3',
+          activeTintColor: "blue",
+          inactiveTintColor: "#D3D3D3",
           showLabel: false,
-			    showIcon: true,
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopColor:'#D3D3D3'
+          showIcon: true,
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopColor: "#D3D3D3"
           },
           indicatorStyle: {
-              backgroundColor: 'orange',
-          },
+            backgroundColor: "orange"
+          }
         }
-      }  
-  },
-  Dancer: { 
-    screen: Dancer,
+      }
+    },
+    Dancer: {
+      screen: Dancer,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Image
@@ -79,138 +76,125 @@ const Drawer = createMaterialTopTabNavigator(
           />
         ),
         tabBarOptions: {
-          activeTintColor:'blue',
-          inactiveTintColor:'#D3D3D3',
+          activeTintColor: "blue",
+          inactiveTintColor: "#D3D3D3",
           showLabel: false,
-			    showIcon: true,
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopColor:'#D3D3D3'
+          showIcon: true,
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopColor: "#D3D3D3"
           },
           indicatorStyle: {
-              backgroundColor: 'orange',
-          },
-        }
-      } 
-  },
-  Mc: { 
-    screen: Mc,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Image
-            source={Assets.mcIcon1}
-            style={{ height: 30, width: 30 }}
-          />
-        ),
-        tabBarOptions: {
-          activeTintColor:'blue',
-          inactiveTintColor:'#D3D3D3',
-          showLabel: false,
-			    showIcon: true,
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopColor:'#D3D3D3'
-          },
-          indicatorStyle: {
-              backgroundColor: 'orange',
-          },
-        }
-      } 
-  },
-  Actor: { 
-    screen: Actor,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Image
-            source={Assets.actorIcon1}
-            style={{ height: 30, width: 30 }}
-          />
-        ),
-        tabBarOptions: {
-          activeTintColor:'blue',
-          inactiveTintColor:'#D3D3D3',
-          showLabel: false,
-			    showIcon: true,
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopColor:'#D3D3D3'
-          },
-          indicatorStyle: {
-              backgroundColor: 'orange',
-          },
+            backgroundColor: "orange"
+          }
         }
       }
-  },
-  Poet: { 
-    screen: Poet,
+    },
+    Mc: {
+      screen: Mc,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Image
-            source={Assets.poetIcon1}
-            style={{ height: 30, width: 30 }}
-          />
+          <Image source={Assets.mcIcon1} style={{ height: 30, width: 30 }} />
         ),
         tabBarOptions: {
-          activeTintColor:'blue',
-          inactiveTintColor:'#D3D3D3',
+          activeTintColor: "blue",
+          inactiveTintColor: "#D3D3D3",
           showLabel: false,
-			    showIcon: true,
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopColor:'#D3D3D3'
+          showIcon: true,
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopColor: "#D3D3D3"
           },
           indicatorStyle: {
-              backgroundColor: 'orange',
-          },
-        }
-      } 
-  },
-  Runway: { 
-    screen: Runway,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Image
-            source={Assets.brandIcon1}
-            style={{ height: 30, width: 30 }}
-          />
-        ),
-        tabBarOptions: {
-          activeTintColor:'blue',
-          inactiveTintColor:'#D3D3D3',
-          showLabel: false,
-			    showIcon: true,
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopColor:'#D3D3D3'
-          },
-          indicatorStyle: {
-              backgroundColor: 'orange',
-          },
+            backgroundColor: "orange"
+          }
         }
       }
+    },
+    Actor: {
+      screen: Actor,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Image source={Assets.actorIcon1} style={{ height: 30, width: 30 }} />
+        ),
+        tabBarOptions: {
+          activeTintColor: "blue",
+          inactiveTintColor: "#D3D3D3",
+          showLabel: false,
+          showIcon: true,
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopColor: "#D3D3D3"
+          },
+          indicatorStyle: {
+            backgroundColor: "orange"
+          }
+        }
+      }
+    },
+    Poet: {
+      screen: Poet,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Image source={Assets.poetIcon1} style={{ height: 30, width: 30 }} />
+        ),
+        tabBarOptions: {
+          activeTintColor: "blue",
+          inactiveTintColor: "#D3D3D3",
+          showLabel: false,
+          showIcon: true,
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopColor: "#D3D3D3"
+          },
+          indicatorStyle: {
+            backgroundColor: "orange"
+          }
+        }
+      }
+    },
+    Runway: {
+      screen: Runway,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Image source={Assets.brandIcon1} style={{ height: 30, width: 30 }} />
+        ),
+        tabBarOptions: {
+          activeTintColor: "blue",
+          inactiveTintColor: "#D3D3D3",
+          showLabel: false,
+          showIcon: true,
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopColor: "#D3D3D3"
+          },
+          indicatorStyle: {
+            backgroundColor: "orange"
+          }
+        }
+      }
+    }
+  },
+  {
+    navigationOptions: {
+      tabBarLabel: "u",
+      tabBarIcon: ({ tintColor }) => (
+        <Image source={Assets.boukdwhipup1} style={{ height: 20, width: 20 }} />
+      ),
+      tabBarOptions: {
+        activeTintColor: "orange",
+        inactiveTintColor: "#D3D3D3",
+        style: {
+          backgroundColor: "blue",
+          borderTopColor: "#D3D3D3"
+        },
+        indicatorStyle: {
+          backgroundColor: "red"
+        }
+      }
+    }
   }
-},
-{navigationOptions: {
-        tabBarLabel: "u",
-        tabBarIcon: ({ tintColor }) => (
-          <Image
-            source={Assets.boukdwhipup1}
-            style={{ height: 20, width: 20 }}
-          />
-        ),
-        tabBarOptions: {
-          activeTintColor:'orange',
-          inactiveTintColor:'#D3D3D3',
-          style:{
-              backgroundColor:'blue',
-              borderTopColor:'#D3D3D3'
-          },
-          indicatorStyle: {
-              backgroundColor: 'red',
-          },
-        }
-      }
-});
+);
 
 const PContainer = createAppContainer(Drawer);
 

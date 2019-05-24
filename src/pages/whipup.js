@@ -29,33 +29,39 @@ export default class WhipUp extends Component {
 
   renderItem = ({ item }) => {
     return (
-      <TouchableOpacity
-        style={{ flex: 1, flexDirection: "row", marginBottom: 3 }}
-        onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          marginBottom: 3,
+          borderRadius: 20,
+          margin: 5,
+          backgroundColor: "#efecee"
+        }}
+        //onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
       >
         <Image
-          style={{ width: 60, height: 60, margin: 5 }}
+          style={{ width: 60, height: 60, margin: 5, borderRadius: 30 }}
           source={{
-            uri: "https://infohtechict.co.ke/apps/boukd/images/" + item.mypic
+            uri:
+              "https://infohtechict.co.ke/apps/boukd/images/avatar/" +
+              item.mypic
           }}
         />
         <View
           style={{
             flex: 1,
-            justifyContent: "center",
-            borderBottomEndRadius: 20,
-            marginRight: 5,
-            backgroundColor: "#F6F1F8"
+            justifyContent: "center"
           }}
         >
-          <Text style={{ fontSize: 18, color: "blue", marginBottom: 1 }}>
-            User name: {item.UserName}
+          <Text style={{ fontSize: 12, color: "#05087f", marginBottom: 1 }}>
+            {item.UserName}
           </Text>
-          <Text style={{ fontSize: 14, color: "green" }}>
-            email: {item.email}
+          <Text style={{ fontSize: 14, color: "#4c1037", padding: 2 }}>
+            {item.description}
           </Text>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
 
@@ -66,7 +72,7 @@ export default class WhipUp extends Component {
   };
 
   componentDidMount() {
-    const url = "https://infohtechict.co.ke/apps/boukd/users.php";
+    const url = "https://infohtechict.co.ke/apps/boukd/whipup.php";
     fetch(url)
       .then(response => response.json())
       .then(responseJson => {
@@ -91,7 +97,7 @@ export default class WhipUp extends Component {
           renderItem={this.renderItem}
           //keyExtractor={(item, index) => "list-item-${index}"}
           keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={this.renderSeparator}
+          //ItemSeparatorComponent={this.renderSeparator}
         />
       </View>
     );

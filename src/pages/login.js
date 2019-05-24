@@ -10,16 +10,9 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Keyboard,
-  AsyncStorage
+  Keyboard
 } from "react-native";
-import {
-  createSwitchNavigator,
-  createAppContainer,
-  createDrawerNavigator,
-  createBottomTabNavigator,
-  createStackNavigator
-} from "react-navigation";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import Logo from "../components/logo";
 
@@ -34,7 +27,11 @@ export default class Login extends Component {
     };
   }
 
-  _login = async () => {
+  startSession = async () => {
+    await AsyncStorage.setItem("isLoggedIn", "Yes");
+  };
+
+  loginUser = () => {
     const { userEmail, userPassword } = this.state;
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (userEmail == "") {
@@ -67,8 +64,9 @@ export default class Login extends Component {
         .then(responseJson => {
           if (responseJson == "ok") {
             // redirect to Dashboard
-            alert("Successfully Login");
+            //alert("Successfully Login");
             //await AsyncStorage.setItem("isLoggedIn", "1");
+            this.startSession();
             this.props.navigation.navigate("Dashboard");
           } else {
             alert("Wrong Login Details");
@@ -81,6 +79,7 @@ export default class Login extends Component {
 
     Keyboard.dismiss();
   };
+
   render() {
     return (
       <View style={styles.container}>
@@ -105,7 +104,7 @@ export default class Login extends Component {
             onChangeText={userPassword => this.setState({ userPassword })}
           />
           <TouchableOpacity style={styles.buttonContainer}>
-            <Text style={styles.buttonText} onPress={this._login}>
+            <Text style={styles.buttonText} onPress={this.loginUser}>
               Sign in
             </Text>
           </TouchableOpacity>

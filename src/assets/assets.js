@@ -35,5 +35,7 @@ export default {
   mcIcon1: require("./images/mc-icon.png"),
   actorIcon1: require("./images/poet-icon1b.png"),
   poetIcon1: require("./images/poet-icon.png"),
-  brandIcon1: require("./images/brand-icon.png")
+  brandIcon1: require("./images/brand-icon.png"),
+
+  bkdsearch1: require("./images/bkdsearch5.png")
 };

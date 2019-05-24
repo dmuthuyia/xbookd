@@ -7,7 +7,8 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
-  Image
+  Image,
+  Button
 } from "react-native";
 
 import {
@@ -57,16 +58,16 @@ const DashboardTabNavigator = createBottomTabNavigator(
           <Image source={Assets.boukdbook1} style={{ height: 20, width: 20 }} />
         ),
         tabBarOptions: {
-          activeTintColor:'orange',
-          inactiveTintColor:'#D3D3D3',
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopWidth:3,
-              borderTopColor:'#D3D3D3'
+          activeTintColor: "orange",
+          inactiveTintColor: "#D3D3D3",
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopWidth: 3,
+            borderTopColor: "#D3D3D3"
           },
           indicatorStyle: {
-              backgroundColor: 'red',
-          },
+            backgroundColor: "red"
+          }
         }
       }
     },
@@ -81,16 +82,16 @@ const DashboardTabNavigator = createBottomTabNavigator(
           />
         ),
         tabBarOptions: {
-          activeTintColor:'orange',
-          inactiveTintColor:'#D3D3D3',
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopWidth:3,
-              borderTopColor:'#D3D3D3'
+          activeTintColor: "orange",
+          inactiveTintColor: "#D3D3D3",
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopWidth: 3,
+            borderTopColor: "#D3D3D3"
           },
           indicatorStyle: {
-              backgroundColor: 'red',
-          },
+            backgroundColor: "red"
+          }
         }
       }
     },
@@ -102,16 +103,16 @@ const DashboardTabNavigator = createBottomTabNavigator(
           <Image source={Assets.boukdLive} style={{ height: 20, width: 20 }} />
         ),
         tabBarOptions: {
-          activeTintColor:'orange',
-          inactiveTintColor:'#D3D3D3',
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopWidth:3,
-              borderTopColor:'#4c1037'
+          activeTintColor: "orange",
+          inactiveTintColor: "#D3D3D3",
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopWidth: 3,
+            borderTopColor: "#4c1037"
           },
           indicatorStyle: {
-              backgroundColor: 'red',
-          },
+            backgroundColor: "red"
+          }
         }
       }
     },
@@ -126,16 +127,16 @@ const DashboardTabNavigator = createBottomTabNavigator(
           />
         ),
         tabBarOptions: {
-          activeTintColor:'orange',
-          inactiveTintColor:'#D3D3D3',
-          style:{
-              backgroundColor:'#4c1037',
-              borderTopWidth:3,
-              borderTopColor:'#D3D3D3'
+          activeTintColor: "orange",
+          inactiveTintColor: "#D3D3D3",
+          style: {
+            backgroundColor: "#4c1037",
+            borderTopWidth: 3,
+            borderTopColor: "#D3D3D3"
           },
           indicatorStyle: {
-              backgroundColor: 'red',
-          },
+            backgroundColor: "red"
+          }
         }
       }
     }
@@ -144,7 +145,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
     navigationOptions: ({ navigation }) => {
       const { routeName } = navigation.state.routes[navigation.state.index];
       return {
-        headerTitle: routeName,
+        headerTitle: "Boukd" + " - " + routeName,
         headerStyle: {
           backgroundColor: "blue"
         },
@@ -172,6 +173,18 @@ const DashboardStackNavigator = createStackNavigator(
               <Image
                 style={{ width: 40, height: 40 }}
                 source={Assets.bkdmenu3}
+                name="ios-list"
+                size={30}
+              />
+            </TouchableOpacity>
+          </View>
+        ),
+        headerRight: (
+          <View>
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Image
+                style={{ width: 40, height: 40 }}
+                source={Assets.bkdsearch1}
                 name="ios-list"
                 size={30}
               />
@@ -334,6 +347,6 @@ const styles = StyleSheet.create({
     fontWeight: "500"
   },
   btmtab: {
-    backgroundColor: "red",
+    backgroundColor: "red"
   }
 });
