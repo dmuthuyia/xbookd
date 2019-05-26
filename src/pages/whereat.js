@@ -8,16 +8,155 @@ import {
   StyleSheet,
   Text,
   View,
+  FlatList,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator,
+  Image,
+  ToastAndroid,
+  Alert
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
+//import console = require("console");
 
 export default class WhereAt extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataSource: [],
+      isLoading: true
+    };
+  }
+
+  ticketNow = (venue, event, fee, currency) => {
+    if (fee > 0) {
+      Alert.alert(
+        "Ticket details",
+        "Buy " + venue + "'s " + event + "- ticket at " + fee + " " + currency,
+        [
+          { text: "No, go back", style: "cancel" },
+          { text: "Yes", onPress: this.toBuyTicket }
+        ],
+        { cancelable: false }
+      );
+      return true;
+    } else {
+      alert(
+        "This event is either free or they are not selling tickets on this platform"
+      );
+    }
+  };
+
+  toBuyTicket = async () => {
+    try {
+      this.props.navigation.navigate("Login");
+    } catch (error) {
+      alert("error");
+    }
+  };
+
+  renderItem = ({ item }) => {
     return (
+      <TouchableOpacity
+        style={{ flex: 1, flexDirection: "row", marginBottom: 3 }}
+        onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
+      >
+        <Image
+          style={{ width: 60, height: 60, margin: 5 }}
+          source={{
+            uri:
+              "https://infohtechict.co.ke/apps/boukd/images/places/" +
+              item.whereat_img
+          }}
+        />
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            borderBottomEndRadius: 20,
+            marginRight: 5,
+            backgroundColor: "#ded9d9"
+          }}
+        >
+          <Text style={{ fontSize: 18, color: "blue", marginBottom: 1 }}>
+            {item.venue_name}
+          </Text>
+          <Text>
+            Main Acts: ({item.headliner1_name} . {item.headliner2_name} .
+            {item.headliner3_name})
+          </Text>
+          <Text style={{ fontSize: 14, color: "green" }}>
+            {item.description}
+          </Text>
+          <TouchableOpacity style={{ width: 400 }}>
+            <View
+              style={{
+                fontSize: 18,
+                color: "blue",
+                marginBottom: 1,
+                backgroundColor: "#e3bfe2",
+                width: 100,
+                height: 20,
+                borderRadius: 5,
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <Text
+                onPress={this.ticketNow.bind(
+                  this,
+                  item.venue_name,
+                  item.event_name,
+                  item.ticket,
+                  item.currency
+                )}
+                style={{
+                  fontSize: 12,
+                  color: "black"
+                }}
+              >
+                Ticket
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  renderSeparator = () => {
+    return (
+      <View style={{ height: 1, width: "100%", backgroundColor: "gray" }} />
+    );
+  };
+
+  componentDidMount() {
+    const url = "https://infohtechict.co.ke/apps/boukd/whereat.php";
+    fetch(url)
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          dataSource: responseJson,
+          isLoading: false
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  render() {
+    return this.state.isLoading ? (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#330066" animating />
+      </View>
+    ) : (
       <View style={styles.container}>
-        <Text>WhereAt</Text>
+        <FlatList
+          data={this.state.dataSource}
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          //ItemSeparatorComponent={this.renderSeparator}
+        />
       </View>
     );
   }
@@ -25,15 +164,8 @@ export default class WhereAt extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "blue",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  container: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    backgroundColor: "#ffffff",
+    flex: 1
   },
   inputBox: {
     width: 250,

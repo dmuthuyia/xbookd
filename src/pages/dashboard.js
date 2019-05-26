@@ -37,6 +37,7 @@ import AboutUs from "./about";
 import Tickets from "./ticket";
 
 import MenuDrawer from "./MenuDrawer";
+import LocationMap from "./locationMap";
 
 class Dashboad extends Component {
   render() {

@@ -24,7 +24,7 @@ const mapHeight = (100 * HEIGHT) / 100;
 const controlsContHeight = (10 * HEIGHT) / 100;
 const maxWidth = WIDTH;
 
-export default class Livestream extends Component {
+export default class LocationMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
