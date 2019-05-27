@@ -163,7 +163,8 @@ const DashboardTabNavigator = createBottomTabNavigator(
 
 const DashboardStackNavigator = createStackNavigator(
   {
-    DashboardTabNavigator: DashboardTabNavigator
+    DashboardTabNavigato: { screen: DashboardTabNavigator },
+    LocationMap: { screen: LocationMap }
   },
   {
     defaultNavigationOptions: ({ navigation }) => {

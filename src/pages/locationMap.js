@@ -33,11 +33,32 @@ export default class LocationMap extends Component {
     };
   }
   componentDidMount() {
+    var ltdparam = this.props.navigation.getParam("ltd", "Nothing");
+    var lngparam = this.props.navigation.getParam("lng", "Nothing");
+
+    const coordinatesLtd = parseFloat(
+      ltdparam.substring(0, ltdparam.length - 2)
+    );
+
+    const coordinatesLng = parseFloat(
+      lngparam.substring(0, lngparam.length - 2)
+    );
+
+    //alert(coordinatesLtd + " " + coordinatesLng);
+    //this.setState({
+    //latitude: coordinatesLtd,
+    //longitude: coordinatesLng,
+    //error: null
+    //});
+
+    //dat = this.props.navigation.getParam("itemId", "NO-ID");
+    //alert(dat);
+
     navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          latitude: coordinatesLtd,
+          longitude: coordinatesLng,
           error: null
         });
       },
@@ -78,23 +99,15 @@ export default class LocationMap extends Component {
               region={{
                 latitude: this.state.latitude,
                 longitude: this.state.longitude,
-                latitudeDelta: 0.015,
-                longitudeDelta: 0.0121
+                latitudeDelta: 0.12,
+                longitudeDelta: 0.12
               }}
             >
               <MapView.Marker coordinate={this.state} />
-              <MapView.Marker
-                coordinate={{
-                  latitude: -1.211507,
-                  longitude: 36.903822
-                }}
-                title="Party"
-                description="party"
-              />
             </MapView>
           ) : (
             <View style={styles.alert}>
-              <Text style={styles.buttonText}>We can't find you</Text>
+              <Text style={styles.buttonText}>Locating...</Text>
             </View>
           )}
           <View style={styles.lvmenu} />

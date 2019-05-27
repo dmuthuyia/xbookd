@@ -94,7 +94,7 @@ export default class Livestream extends Component {
             </MapView>
           ) : (
             <View style={styles.alert}>
-              <Text style={styles.buttonText}>We can't find you</Text>
+              <Text style={styles.buttonText}>Looking for you</Text>
             </View>
           )}
           <View style={styles.lvmenu} />

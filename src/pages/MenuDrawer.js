@@ -32,7 +32,7 @@ export default class MenuDrawer extends React.Component {
   }
 
   componentWillMount() {
-    BackHandler.addEventListener("hardwareBackPress", this.backPressed);
+    //BackHandler.addEventListener("hardwareBackPress", this.backPressed);
   }
 
   componentWillUnmount() {
@@ -75,7 +75,7 @@ export default class MenuDrawer extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.drawerHeader}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("")}>
             <Image
               style={{ width: 40, height: 40, margin: 5 }}
               source={Assets.boukdHome2}

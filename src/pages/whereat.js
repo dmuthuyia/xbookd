@@ -59,7 +59,14 @@ export default class WhereAt extends Component {
     return (
       <TouchableOpacity
         style={{ flex: 1, flexDirection: "row", marginBottom: 3 }}
-        onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
+        //onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
+        //onPress={() =>this.props.navigation.navigate("LocationMap", { itemId: 86 })}
+        onPress={() =>
+          this.props.navigation.navigate("LocationMap", {
+            ltd: item.latitude,
+            lng: item.longitude
+          })
+        }
       >
         <Image
           style={{ width: 60, height: 60, margin: 5 }}
