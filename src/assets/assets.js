@@ -37,5 +37,10 @@ export default {
   poetIcon1: require("./images/poet-icon.png"),
   brandIcon1: require("./images/brand-icon.png"),
 
-  bkdsearch1: require("./images/bkdsearch5.png")
+  bkdsearch1: require("./images/bkdsearch5.png"),
+  boukdexit1: require("./images/boukdexit.png"),
+  boukdticket1: require("./images/boukdticket.png"),
+  boukdlove1: require("./images/boukdlove.png"),
+  boukdhate1: require("./images/boukdhate.png"),
+  boukdcomment1: require("./images/boukdcomment.png")
 };

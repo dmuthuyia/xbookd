@@ -164,11 +164,23 @@ const DashboardTabNavigator = createBottomTabNavigator(
 const DashboardStackNavigator = createStackNavigator(
   {
     DashboardTabNavigato: { screen: DashboardTabNavigator },
-    LocationMap: { screen: LocationMap }
+    LocationMap: {
+      screen: LocationMap,
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: "blue"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    }
   },
   {
     defaultNavigationOptions: ({ navigation }) => {
       return {
+        headerTitle: "Boukd",
         headerLeft: (
           <View>
             <TouchableOpacity onPress={() => navigation.openDrawer()}>

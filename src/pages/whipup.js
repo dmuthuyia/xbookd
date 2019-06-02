@@ -13,10 +13,11 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Image,
-  ToastAndroid
+  ToastAndroid,
+  Button
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
-//import console = require("console");
+import Assets from "../assets/assets";
 
 export default class WhipUp extends Component {
   constructor(props) {
@@ -33,33 +34,69 @@ export default class WhipUp extends Component {
         style={{
           flex: 1,
           flexDirection: "row",
-          marginBottom: 3,
           borderRadius: 20,
-          margin: 5,
-          backgroundColor: "#efecee"
+          margin: 4,
+          backgroundColor: "#eeedf9"
         }}
         //onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
       >
-        <Image
-          style={{ width: 60, height: 60, margin: 5, borderRadius: 30 }}
-          source={{
-            uri:
-              "https://infohtechict.co.ke/apps/boukd/images/avatar/" +
-              item.mypic
-          }}
-        />
+        <View style={{ justifyContent: "center", alignItems: "stretch" }}>
+          <Image
+            style={{
+              width: 60,
+              height: 60,
+              margin: 5,
+              borderRadius: 30
+            }}
+            source={{
+              uri:
+                "https://infohtechict.co.ke/apps/boukd/images/avatar/" +
+                item.mypic
+            }}
+          />
+        </View>
         <View
           style={{
             flex: 1,
             justifyContent: "center"
           }}
         >
-          <Text style={{ fontSize: 12, color: "#05087f", marginBottom: 1 }}>
-            {item.UserName}
-          </Text>
-          <Text style={{ fontSize: 14, color: "#4c1037", padding: 2 }}>
+          <View
+            style={{
+              backgroundColor: "#e2e2f7",
+              borderTopRightRadius: 50,
+              alignSelf: "flex-start",
+              paddingLeft: 5,
+              paddingRight: 20
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                color: "#05087f",
+                marginBottom: 1
+              }}
+            >
+              {item.UserName}
+            </Text>
+          </View>
+          <Text style={{ fontSize: 16, color: "black", padding: 2 }}>
             {item.description}
           </Text>
+          <View style={styles.comReactWrapper}>
+            <View style={styles.comReactButton}>
+              <Image source={Assets.boukdlove1} style={styles.drawerico} />
+              <Text>10</Text>
+            </View>
+            <View style={styles.comReactButton}>
+              <Image source={Assets.boukdhate1} style={styles.drawerico} />
+              <Text>1</Text>
+            </View>
+            <View style={styles.comReactButton}>
+              <Image source={Assets.boukdcomment1} style={styles.drawerico} />
+              <Text>23</Text>
+            </View>
+          </View>
         </View>
       </View>
     );
@@ -155,5 +192,24 @@ const styles = StyleSheet.create({
     color: "yellow",
     fontSize: 16,
     fontWeight: "500"
+  },
+  comReactWrapper: {
+    width: 500,
+    flexDirection: "row",
+    borderColor: "#fff",
+    borderTopWidth: 2,
+    borderLeftWidth: 2
+  },
+  comReactButton: {
+    color: "green",
+    fontSize: 12,
+    width: 60,
+    flexDirection: "row"
+  },
+  drawerico: {
+    width: 15,
+    height: 15,
+    margin: 5,
+    opacity: 0.6
   }
 });

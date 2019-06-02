@@ -8,8 +8,8 @@ import App from "./App";
 //import App from "./src/heyj/App";
 
 //import Livestream from "./src/pages/livestream";
-//import Book from "./src/pages/book";
-//import App2 from "./src/pages/app2/app2";
+//import WPReact from "./src/pages/noflatlist";
+//import Looptest from "./src/pages/looptest2";
 //import Lsnavigator from "./src/components/lsnavigator";
 
 import { name as appName } from "./app.json";

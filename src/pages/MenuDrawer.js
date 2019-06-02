@@ -118,7 +118,7 @@ export default class MenuDrawer extends React.Component {
               <View style={styles.menuItem}>
                 <Image
                   style={styles.img}
-                  source={Assets.places1}
+                  source={Assets.boukdticket1}
                   style={styles.drawerico}
                 />
                 {this.navLink("Tickets", "Buy tickets")}
@@ -150,7 +150,7 @@ export default class MenuDrawer extends React.Component {
               <View style={styles.menuItem}>
                 <Image
                   style={styles.img}
-                  source={Assets.places1}
+                  source={Assets.boukdexit1}
                   style={styles.drawerico}
                 />
                 <TouchableOpacity onPress={this.userLogout}>
