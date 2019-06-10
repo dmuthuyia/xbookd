@@ -52,7 +52,18 @@ export default class Musician extends Component {
     return (
       <TouchableOpacity
         style={{ flex: 1, marginBottom: 3 }}
-        onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
+        //onPress={() => ToastAndroid.show(item.UserName, ToastAndroid.SHORT)}
+        onPress={() =>
+          this.props.navigation.navigate("Page", {
+            pId: item.id,
+            dp: item.skillprofile_img,
+            userName: item.UserName,
+            birthName: item.FirstName + " " + item.LastName,
+            country: item.Country,
+            city: item.City,
+            dob: item.dobday + "/" + item.dobmonth + "/" + item.dobyear
+          })
+        }
       >
         <View
           style={{
@@ -142,7 +153,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#d6adee",
     flex: 1,
-    paddingTop: 5,
+    paddingTop: 5
   },
   invisibleItem: {
     backgroundColor: "transparent"

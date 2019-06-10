@@ -1,43 +1,44 @@
-/**
- developer: Dennis Muthuyia  
- email:  dmuthuyia@gmail.com
- */
+// DisplayModal.js
 
 import React, { Component } from "react";
 import {
-  StyleSheet,
-  Text,
+  Modal,
   View,
+  Image,
+  Text,
+  StyleSheet,
+  Button,
+  PanResponder,
+  Animated,
+  Dimensions,
+  ScrollView,
   FlatList,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator,
-  Image,
-  ToastAndroid,
-  Button
+  ActivityIndicator
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
-import DisplayModal from "./DisplayModal";
+
 import Assets from "../assets/assets";
 
-export default class WhipUp extends Component {
+const h = Dimensions.get("window").height;
+const modalHeight = (90 * h) / 100;
+
+class WhipUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataSource: [],
       isLoading: true,
-      display: false,
-      whipId: "",
-      userName: ""
+      display: false
     };
   }
 
-  triggerModal = (UserName, WhipId) => {
+  triggerModal = UserName => {
     this.setState(prevState => {
       return {
         display: true,
-        whipId: WhipId,
-        userName: UserName
+        userId: UserName
       };
     });
   };
@@ -108,7 +109,7 @@ export default class WhipUp extends Component {
             </View>
             <TouchableOpacity
               style={styles.comReactButton}
-              onPress={this.triggerModal.bind(this, item.UserName, item.id)}
+              onPress={this.triggerModal.bind(this, item.UserName)}
             >
               <Image source={Assets.boukdcomment1} style={styles.drawerico} />
               <Text>23</Text>
@@ -126,8 +127,19 @@ export default class WhipUp extends Component {
   };
 
   componentDidMount() {
-    const url = "https://infohtechict.co.ke/apps/boukd/whipup.php";
-    fetch(url)
+    fetch("https://infohtechict.co.ke/apps/boukd/response.php", {
+      method: "post",
+      header: {
+        Accept: "application/json",
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        // we will pass our search data to server
+        whistle_id: "1"
+
+        //whistle_id: 1
+      })
+    })
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
@@ -136,9 +148,10 @@ export default class WhipUp extends Component {
         });
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   }
+
   render() {
     return this.state.isLoading ? (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -153,22 +166,65 @@ export default class WhipUp extends Component {
           keyExtractor={(item, index) => index.toString()}
           //ItemSeparatorComponent={this.renderSeparator}
         />
-        <DisplayModal WhipId="1" display={this.state.display} />
       </View>
     );
   }
 }
+
+const DisplayModal = props => (
+  <Modal
+    visible={props.display}
+    animationType="slide"
+    onRequestClose={() => {
+      DisplayModal(false);
+    }}
+    transparent={true}
+  >
+    <View style={styles.modal}>
+      <View style={{ flex: 1 }}>
+        <Button
+          style={styles.buttonContainer}
+          onPress={() => this.props.navigation.navigate("WhipUp")}
+          title="Go back"
+        />
+        <WhipUp />
+        <View>
+          <TextInput placeholder="Comment" />
+          <Button
+            style={styles.buttonContainer}
+            onClick={() => props.parentMethod}
+            title="Post"
+          />
+        </View>
+      </View>
+    </View>
+  </Modal>
+);
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#ffffff",
     flex: 1
   },
-  inputBox: {
+  modal: {
+    borderRadius: 2,
+    borderColor: "blue",
+    borderWidth: 2,
+    margin: 10,
+    height: modalHeight,
+    justifyContent: "space-between",
+    backgroundColor: "#ffffff"
+  },
+  inputWrap: {
+    flexGrow: 1,
+    alignItems: "flex-end",
+    justifyContent: "center"
+  },
+  textInput: {
     width: 250,
     height: 40,
     backgroundColor: "rgba(255,255,255,0.2)",
-    color: "#fff",
+    color: "gray",
     borderColor: "gray",
     borderWidth: 1,
     borderRadius: 10,
@@ -176,18 +232,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 16
   },
+  comments: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
   logoText: {
     marginVertical: 15,
     fontSize: 18,
     color: "rgba(255,255,255,0.7)"
   },
   buttonContainer: {
-    width: 250,
-    backgroundColor: "#92ca2c",
-    paddingVertical: 5,
-    borderRadius: 10,
-    borderColor: "#ffffff",
-    borderWidth: 2
+    borderRadius: 5
   },
   buttonText: {
     textAlign: "center",
@@ -229,5 +285,12 @@ const styles = StyleSheet.create({
     height: 15,
     margin: 5,
     opacity: 0.6
+  },
+  footer: {
+    alignItems: "flex-end",
+    position: "absolute",
+    bottom: 0
   }
 });
+
+export default DisplayModal;

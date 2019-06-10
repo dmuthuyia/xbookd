@@ -9,7 +9,7 @@ import App from "./App";
 
 //import Livestream from "./src/pages/livestream";
 //import WPReact from "./src/pages/noflatlist";
-//import Looptest from "./src/pages/looptest2";
+//import Looptest from "./src/pages/comments";
 //import Lsnavigator from "./src/components/lsnavigator";
 
 import { name as appName } from "./app.json";
