@@ -3,6 +3,8 @@ package com.xbookd;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+
+import com.brentvatne.react.ReactVideoPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
@@ -18,6 +20,8 @@ import org.reactnative.camera.RNCameraPackage;
 import java.util.Arrays;
 import java.util.List;
 
+import com.brentvatne.react.ReactVideoPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -30,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+       
             new AsyncStoragePackage(),
             new VectorIconsPackage(),
             new RNScreensPackage(),
@@ -37,6 +42,8 @@ public class MainApplication extends Application implements ReactApplication {
             new MapsPackage(),
             new RNCameraPackage()
       );
+       
+  
     }
 
     @Override

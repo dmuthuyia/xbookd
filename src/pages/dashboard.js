@@ -39,6 +39,7 @@ import Tickets from "./ticket";
 import MenuDrawer from "./MenuDrawer";
 import LocationMap from "./locationMap";
 import Page from "./page";
+import Booking from "./booking";
 
 class Dashboad extends Component {
   render() {
@@ -179,6 +180,18 @@ const DashboardStackNavigator = createStackNavigator(
     },
     Page: {
       screen: Page,
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: "blue"
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
+      }
+    },
+    Booking: {
+      screen: Booking,
       navigationOptions: {
         headerStyle: {
           backgroundColor: "blue"

@@ -18,6 +18,7 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import geolib from "geolib";
 import Lsnavigator from "../components/lsnavigator";
 import Assets from "../assets/assets";
+import Gallery from "react-native-image-gallery";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
@@ -25,6 +26,11 @@ const HEIGHT = Dimensions.get("window").height;
 const point3H = (40 * HEIGHT) / 100;
 const controlsContHeight = (10 * HEIGHT) / 100;
 const point3W = (50 * WIDTH) / 100;
+const point3W2 = (33.3 * WIDTH) / 100;
+const section1H = (25 * HEIGHT) / 100;
+const section2H = (30 * HEIGHT) / 100;
+const section3H = (30 * HEIGHT) / 100;
+const section4H = (8 * HEIGHT) / 100;
 
 export default class Page extends Component {
   constructor(props) {
@@ -109,9 +115,72 @@ export default class Page extends Component {
               />
             </View>
           </View>
-          <TouchableOpacity style={styles.bookBtnContainer}>
-            <Text style={styles.buttonText}>Book {this.state.userName} </Text>
-          </TouchableOpacity>
+          <View style={styles.section4}>
+            <TouchableOpacity
+              style={styles.bookBtnContainer}
+              onPress={() =>
+                this.props.navigation.navigate("Booking", {
+                  userName: this.state.userName,
+                  dp: this.state.dp
+                })
+              }
+            >
+              <Text style={styles.buttonText}>Book {this.state.userName} </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.section2}>
+            <Image
+              style={{ width: point3W2, height: 150 }}
+              source={{
+                uri:
+                  "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+                  this.state.dp
+              }}
+            />
+            <Image
+              style={{ width: point3W2, height: 150 }}
+              source={{
+                uri:
+                  "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+                  this.state.dp
+              }}
+            />
+            <Image
+              style={{ width: point3W2, height: 150 }}
+              source={{
+                uri:
+                  "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+                  this.state.dp
+              }}
+            />
+          </View>
+          <View style={styles.section3}>
+            <Image
+              style={{ width: point3W2, height: 150 }}
+              source={{
+                uri:
+                  "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+                  this.state.dp
+              }}
+            />
+            <Image
+              style={{ width: point3W2, height: 150 }}
+              source={{
+                uri:
+                  "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+                  this.state.dp
+              }}
+            />
+            <Image
+              style={{ width: point3W2, height: 150 }}
+              source={{
+                uri:
+                  "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+                  this.state.dp
+              }}
+            />
+          </View>
         </View>
       </View>
     );
@@ -178,9 +247,33 @@ const styles = StyleSheet.create({
   section1: {
     width: WIDTH,
     flexDirection: "row",
+    height: section1H,
     padding: 2
   },
   col1: {
     width: point3W
+  },
+  section2: {
+    flex: 1,
+    width: WIDTH,
+    flexDirection: "row",
+    height: section2H,
+    justifyContent: "center",
+    padding: 2
+  },
+  section3: {
+    flex: 1,
+    width: WIDTH,
+    flexDirection: "row",
+    height: section3H,
+    justifyContent: "center",
+    padding: 2
+  },
+  section4: {
+    width: WIDTH,
+    flexDirection: "row",
+    height: section4H,
+    justifyContent: "center",
+    padding: 2
   }
 });
