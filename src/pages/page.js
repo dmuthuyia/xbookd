@@ -19,7 +19,11 @@ import geolib from "geolib";
 import Lsnavigator from "../components/lsnavigator";
 import Assets from "../assets/assets";
 import Gallery from "react-native-image-gallery";
+i; //mport Carousel, { Pagination } from "react-native-snap-carousel";
 
+//import Bkdgallery from "./bkdgallery/index";
+
+// react-native-snap-carousel variables slider1ActiveSlide: SLIDER_1_FIRST_ITEM
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 
@@ -32,6 +36,9 @@ const section2H = (30 * HEIGHT) / 100;
 const section3H = (30 * HEIGHT) / 100;
 const section4H = (8 * HEIGHT) / 100;
 
+const IS_ANDROID = Platform.OS === "android";
+const SLIDER_1_FIRST_ITEM = 1;
+
 export default class Page extends Component {
   constructor(props) {
     super(props);
@@ -43,9 +50,36 @@ export default class Page extends Component {
       birthName: "",
       country: "",
       city: "",
-      dob: ""
+      dob: "",
+
+      // react-native-snap-carousel variables
+      slider1ActiveSlide: SLIDER_1_FIRST_ITEM
     };
   }
+
+  _renderItem({ item, index }) {
+    return <SliderEntry data={item} even={(index + 1) % 2 === 0} />;
+  }
+
+  _renderItemWithParallax({ item, index }, parallaxProps) {
+    return (
+      <SliderEntry
+        data={item}
+        even={(index + 1) % 2 === 0}
+        parallax={true}
+        parallaxProps={parallaxProps}
+      />
+    );
+  }
+
+  _renderLightItem({ item, index }) {
+    return <SliderEntry data={item} even={false} />;
+  }
+
+  _renderDarkItem({ item, index }) {
+    return <SliderEntry data={item} even={true} />;
+  }
+
   componentDidMount() {
     var pId = this.props.navigation.getParam("pId", "Nothing");
     var dp = this.props.navigation.getParam("dp", "Nothing");
@@ -155,32 +189,7 @@ export default class Page extends Component {
               }}
             />
           </View>
-          <View style={styles.section3}>
-            <Image
-              style={{ width: point3W2, height: 150 }}
-              source={{
-                uri:
-                  "https://infohtechict.co.ke/apps/boukd/images/profile/" +
-                  this.state.dp
-              }}
-            />
-            <Image
-              style={{ width: point3W2, height: 150 }}
-              source={{
-                uri:
-                  "https://infohtechict.co.ke/apps/boukd/images/profile/" +
-                  this.state.dp
-              }}
-            />
-            <Image
-              style={{ width: point3W2, height: 150 }}
-              source={{
-                uri:
-                  "https://infohtechict.co.ke/apps/boukd/images/profile/" +
-                  this.state.dp
-              }}
-            />
-          </View>
+          <View style={styles.section3} />
         </View>
       </View>
     );
@@ -247,7 +256,7 @@ const styles = StyleSheet.create({
   section1: {
     width: WIDTH,
     flexDirection: "row",
-    height: section1H,
+    //height: section1H,
     padding: 2
   },
   col1: {
@@ -257,7 +266,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: WIDTH,
     flexDirection: "row",
-    height: section2H,
+    //height: section2H,
     justifyContent: "center",
     padding: 2
   },
@@ -265,14 +274,14 @@ const styles = StyleSheet.create({
     flex: 1,
     width: WIDTH,
     flexDirection: "row",
-    height: section3H,
+    //height: section3H,
     justifyContent: "center",
     padding: 2
   },
   section4: {
     width: WIDTH,
     flexDirection: "row",
-    height: section4H,
+    //height: section4H,
     justifyContent: "center",
     padding: 2
   }

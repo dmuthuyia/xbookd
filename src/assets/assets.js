@@ -24,6 +24,7 @@ export default {
   bg4: require("./images/bg.png"),
   bg5: require("./images/bg.png"),
   bg6: require("./images/bg.png"),
+  bg12: require("./images/bg12.png"),
 
   boukdbook1: require("./images/boukdbook1.png"),
   boukdwhereat1: require("./images/boukdwhereat1.png"),

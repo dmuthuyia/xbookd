@@ -19,22 +19,23 @@ import {
   PixelRatio,
   Modal,
   Alert,
-  TouchableHighlight
+  TouchableHighlight,
+  Picker,
+  ImageBackground
 } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
 //import Moment from "react-moment";
 //import "moment-timezone";
 import moment from "moment";
 //import { format } from "date-fns";
-import CountryPicker, {
-  getAllCountries
-} from "react-native-country-picker-modal";
 
 import { CountrySelection } from "react-native-country-list";
 import Select from "react-select";
+import Assets from "../assets/assets";
 
 import Logo from "../components/logo";
 import { latitude, longitude } from "geolib";
+import assets from "../assets/assets";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
@@ -68,11 +69,16 @@ export default class Booking extends Component {
       isDateTimePickerVisibleST: false,
       isDateTimePickerVisibleET: false,
 
+      startTime: "",
+      endTime: "",
+      startDate: "",
+      endDate: "",
+
       // react-native-country-list
-      selected: null,
+      //country: "", //->reverse geocode
 
       // react-native-country-list modal
-      modalVisible: false,
+      countryModalVisible: false,
 
       //device location
       location: null,
@@ -83,13 +89,13 @@ export default class Booking extends Component {
 
       googleApiLocation: null,
       country: null,
-      county: null,
+      county: "",
       city: null,
       location: null,
       street: null,
 
-      // dropdown
-      eventType: []
+      //picker dropdown
+      eventType: ""
     };
   }
   componentDidMount() {
@@ -203,33 +209,56 @@ export default class Booking extends Component {
     this.setState({ isDateTimePickerVisibleET: false });
   };
 
-  handleDatePicked = date => {
-    var newDate = moment(date).format("DD/MM/YYYY");
+  handleDatePickedStart = sDate => {
+    var newDate = moment(sDate).format("DD/MM/YYYY");
     //newDate = format(date, "DD/MM/YYYY"); // using date-fns
+    this.setState({ startDate: newDate });
     //alert(newDate);
     this.hideDateTimePicker();
   };
 
-  handleTimePicked = time => {
+  handleDatePickedEnd = eDate => {
+    var newDate = moment(eDate).format("DD/MM/YYYY");
+    //newDate = format(date, "DD/MM/YYYY"); // using date-fns
+    this.setState({ endDate: newDate });
+    //alert(newDate);
+    this.hideDateTimePicker();
+  };
+
+  handleTimePickedStart = sTime => {
     //newTime = time.toLocaleTimeString("en-US");
-    var newTime = moment(time).format("HH:mm");
+    var newTime = moment(sTime).format("HH:mm");
+    this.setState({ startTime: newTime });
     //alert(newTime);
     this.hideDateTimePicker();
   };
 
-  onCountrySelection = country => {
-    this.setState({ selected: country });
+  handleTimePickedEnd = eTime => {
+    //newTime = time.toLocaleTimeString("en-US");
+    var newTime = moment(eTime).format("HH:mm");
+    this.setState({ endTime: newTime });
+    //alert(newTime);
+    this.hideDateTimePicker();
+  };
+
+  onCountrySelection = selCountry => {
+    this.setState({ country: selCountry["name"] });
     //alert(country["name"]);
     //alert(country.name);
     //dispObject = JSON.stringify(country);
     //alert(dispObject);
 
-    this.toggleModal(!this.state.modalVisible);
+    this.toggleCountryModal(!this.state.countryModalVisible);
   };
 
-  toggleModal(visible) {
-    this.setState({ modalVisible: visible });
+  toggleCountryModal(visible) {
+    this.setState({ countryModalVisible: visible });
   }
+
+  handleEventPicker = eventTyp => {
+    this.setState({ eventType: eventTyp });
+    //alert(eventTyp);
+  };
 
   // send data to booking table
 
@@ -267,288 +296,305 @@ export default class Booking extends Component {
   };
 
   render() {
-    const { selected } = this.state;
+    const { country } = this.state;
 
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <View style={styles.section1}>
-            <View style={styles.col1}>
-              <View style={styles.avatar}>
-                <Image
-                  style={{ flex: 1, borderRadius: 10 }}
-                  resizeMode="cover"
-                  source={{
-                    uri:
-                      "https://infohtechict.co.ke/apps/boukd/images/profile/" +
-                      this.state.dp
+        <ImageBackground
+          source={assets.bg12}
+          style={{ width: "100%", height: "100%" }}
+        >
+          <ScrollView>
+            <View style={styles.section1}>
+              <View style={styles.col1}>
+                <View style={styles.avatar}>
+                  <Image
+                    style={{ flex: 1, borderRadius: 10 }}
+                    resizeMode="cover"
+                    source={{
+                      uri:
+                        "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+                        this.state.dp
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.col1}>
+                <Text style={styles.pTextMajor}>
+                  Name:
+                  <Text style={styles.pTextMinor}> {this.state.userName}</Text>
+                </Text>
+                <Text style={styles.pTextMajor}>Performance</Text>
+                <Text style={styles.pTextMajor}>Punctuality</Text>
+                <Text style={styles.pTextMajor}>Professionalism</Text>
+              </View>
+            </View>
+
+            <View style={styles.section2}>
+              <TextInput
+                style={styles.inputBox}
+                placeholder="Event name"
+                placeholderTextColor="gray"
+                returnKeyType="next"
+                autoCorrect={false}
+                onChangeText={eventName => this.setState({ eventName })}
+              />
+              <TextInput
+                style={styles.inputBoxDes}
+                placeholder="description"
+                placeholderTextColor="gray"
+                returnKeyType="next"
+                autoCorrect={true}
+                multiline={true}
+                onChangeText={description => this.setState({ description })}
+              />
+            </View>
+            <View style={styles.section3}>
+              <View style={styles.col1}>
+                <Picker
+                  style={styles.picker1}
+                  selectedValue={this.state.eventType}
+                  onValueChange={this.handleEventPicker}
+                  itemStyle={styles.itemsPicker}
+                >
+                  <Picker.Item label="Event type" color="blue" value={""} />
+                  <Picker.Item label="Private event" value={"70000.00"} />
+                  <Picker.Item label="Corporate event" value={"170000.00"} />
+                </Picker>
+              </View>
+
+              <View style={styles.col1}>
+                <TextInput
+                  style={styles.inputBox}
+                  placeholder="$ amount"
+                  placeholderTextColor="gray"
+                  returnKeyType="next"
+                  autoCorrect={false}
+                  onChangeText={eventName => this.setState({ eventName })}
+                >
+                  {this.state.eventType}
+                </TextInput>
+              </View>
+            </View>
+
+            <View style={styles.section3}>
+              <View style={styles.col1}>
+                <TouchableOpacity
+                  style={styles.selectBtn}
+                  onPress={() => {
+                    this.toggleCountryModal(true);
                   }}
+                >
+                  <Text style={styles.text1}>{this.state.country}</Text>
+                </TouchableOpacity>
+
+                <Modal
+                  animationType={"slide"}
+                  transparent={false}
+                  visible={this.state.countryModalVisible}
+                  onRequestClose={() => {
+                    console.log("Modal has been closed.");
+                  }}
+                >
+                  <View style={styles.modal}>
+                    <View style={{ width: "100%", height: "90%" }}>
+                      <ScrollView>
+                        <CountrySelection
+                          action={item => this.onCountrySelection(item)}
+                          country={country}
+                          style={{ width: 500 }}
+                        />
+                      </ScrollView>
+                    </View>
+                  </View>
+                </Modal>
+              </View>
+
+              <View style={styles.col1}>
+                <TextInput
+                  style={styles.inputBox}
+                  placeholder="State/county"
+                  placeholderTextColor="gray"
+                  returnKeyType="next"
+                  autoCorrect={false}
+                  onChangeText={eventName => this.setState({ eventName })}
+                >
+                  {this.state.county}
+                </TextInput>
+              </View>
+            </View>
+            <View style={styles.section3}>
+              <View style={styles.col1}>
+                <TextInput
+                  style={styles.inputBox}
+                  placeholder="City"
+                  placeholderTextColor="gray"
+                  returnKeyType="next"
+                  autoCorrect={false}
+                  onChangeText={eventName => this.setState({ eventName })}
+                >
+                  {this.state.city}
+                </TextInput>
+              </View>
+
+              <View style={styles.col1}>
+                <TextInput
+                  style={styles.inputBox}
+                  placeholder="Location/street/address"
+                  placeholderTextColor="gray"
+                  returnKeyType="next"
+                  autoCorrect={false}
+                  onChangeText={eventName => this.setState({ eventName })}
+                >
+                  {this.state.street}
+                </TextInput>
+              </View>
+            </View>
+
+            <View style={styles.section3}>
+              <View style={styles.col1}>
+                <TextInput
+                  style={styles.inputBox}
+                  placeholder="Latitude"
+                  placeholderTextColor="gray"
+                  returnKeyType="next"
+                  autoCorrect={false}
+                  onChangeText={eventName => this.setState({ eventName })}
+                >
+                  {this.state.lat}
+                </TextInput>
+              </View>
+
+              <View style={styles.col1}>
+                <TextInput
+                  style={styles.inputBox}
+                  placeholder="Longitude"
+                  placeholderTextColor="gray"
+                  returnKeyType="next"
+                  autoCorrect={false}
+                  onChangeText={eventName => this.setState({ eventName })}
+                >
+                  {this.state.lng}
+                </TextInput>
+              </View>
+            </View>
+            <View style={styles.section3}>
+              <View style={styles.col1}>
+                <TouchableOpacity
+                  style={styles.selectBtn}
+                  onPress={this.showDateTimePickerStartDate}
+                >
+                  <Text style={styles.text1}>
+                    Start Date: {this.state.startDate}
+                  </Text>
+                </TouchableOpacity>
+                <DateTimePicker
+                  isVisible={this.state.isDateTimePickerVisibleSD}
+                  onConfirm={this.handleDatePickedStart}
+                  onCancel={this.hideDateTimePicker}
+                />
+              </View>
+
+              <View style={styles.col1}>
+                <TouchableOpacity
+                  style={styles.selectBtn}
+                  onPress={this.showDateTimePickerEndDate}
+                >
+                  <Text style={styles.text1}>
+                    End Date: {this.state.endDate}
+                  </Text>
+                </TouchableOpacity>
+                <DateTimePicker
+                  isVisible={this.state.isDateTimePickerVisibleED}
+                  onConfirm={this.handleDatePickedEnd}
+                  onCancel={this.hideDateTimePicker}
                 />
               </View>
             </View>
 
-            <View style={styles.col1}>
-              <Text style={styles.pTextMajor}>
-                Name:
-                <Text style={styles.pTextMinor}> {this.state.userName}</Text>
-              </Text>
-              <Text style={styles.pTextMajor}>Performance</Text>
-              <Text style={styles.pTextMajor}>Punctuality</Text>
-              <Text style={styles.pTextMajor}>Professionalism</Text>
-            </View>
-          </View>
-
-          <View style={styles.section2}>
-            <TextInput
-              style={styles.inputBox}
-              placeholder="Event name"
-              placeholderTextColor="gray"
-              returnKeyType="next"
-              autoCorrect={false}
-              onChangeText={eventName => this.setState({ eventName })}
-            />
-            <TextInput
-              style={styles.inputBoxDes}
-              placeholder="description"
-              placeholderTextColor="gray"
-              returnKeyType="next"
-              autoCorrect={true}
-              multiline={true}
-              onChangeText={description => this.setState({ description })}
-            />
-          </View>
-          <View style={styles.section3}>
-            <View style={styles.col1}>
-              <TextInput
-                style={styles.inputBox}
-                placeholder="Event type"
-                placeholderTextColor="gray"
-                returnKeyType="next"
-                autoCorrect={false}
-                onChangeText={eventName => this.setState({ eventName })}
-              />
-            </View>
-
-            <View style={styles.col1}>
-              <TextInput
-                style={styles.inputBox}
-                placeholder="$ amount"
-                placeholderTextColor="gray"
-                returnKeyType="next"
-                autoCorrect={false}
-                onChangeText={eventName => this.setState({ eventName })}
-              />
-            </View>
-          </View>
-
-          <View style={styles.section3}>
-            <View style={styles.col1}>
-              <TouchableOpacity
-                style={styles.inputBox}
-                onPress={() => {
-                  this.toggleModal(true);
-                }}
-              >
-                <Text>{this.state.country}</Text>
-              </TouchableOpacity>
-
-              <Modal
-                animationType={"slide"}
-                transparent={false}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {
-                  console.log("Modal has been closed.");
-                }}
-              >
-                <View style={styles.modal}>
-                  <View style={{ width: "100%", height: "90%" }}>
-                    <ScrollView>
-                      <CountrySelection
-                        action={item => this.onCountrySelection(item)}
-                        selected={selected}
-                        style={{ width: 500 }}
-                      />
-                    </ScrollView>
-                  </View>
-                </View>
-              </Modal>
-            </View>
-
-            <View style={styles.col1}>
-              <TextInput
-                style={styles.inputBox}
-                placeholder="State/county"
-                placeholderTextColor="gray"
-                returnKeyType="next"
-                autoCorrect={false}
-                onChangeText={eventName => this.setState({ eventName })}
-              >
-                {this.state.county}
-              </TextInput>
-            </View>
-          </View>
-          <View style={styles.section3}>
-            <View style={styles.col1}>
-              <TextInput
-                style={styles.inputBox}
-                placeholder="City"
-                placeholderTextColor="gray"
-                returnKeyType="next"
-                autoCorrect={false}
-                onChangeText={eventName => this.setState({ eventName })}
-              >
-                {this.state.city}
-              </TextInput>
-            </View>
-
-            <View style={styles.col1}>
-              <TextInput
-                style={styles.inputBox}
-                placeholder="Location/street/address"
-                placeholderTextColor="gray"
-                returnKeyType="next"
-                autoCorrect={false}
-                onChangeText={eventName => this.setState({ eventName })}
-              >
-                {this.state.street}
-              </TextInput>
-            </View>
-          </View>
-
-          <View style={styles.section3}>
-            <View style={styles.col1}>
-              <TextInput
-                style={styles.inputBox}
-                placeholder="Latitude"
-                placeholderTextColor="gray"
-                returnKeyType="next"
-                autoCorrect={false}
-                onChangeText={eventName => this.setState({ eventName })}
-              >
-                {this.state.lat}
-              </TextInput>
-            </View>
-
-            <View style={styles.col1}>
-              <TextInput
-                style={styles.inputBox}
-                placeholder="Longitude"
-                placeholderTextColor="gray"
-                returnKeyType="next"
-                autoCorrect={false}
-                onChangeText={eventName => this.setState({ eventName })}
-              >
-                {this.state.lng}
-              </TextInput>
-            </View>
-          </View>
-          <View style={styles.section3}>
-            <View style={styles.col1}>
-              <TouchableOpacity
-                style={styles.inputBox}
-                onPress={this.showDateTimePickerStartDate}
-              >
-                <Text>Start date</Text>
-              </TouchableOpacity>
-              <DateTimePicker
-                isVisible={this.state.isDateTimePickerVisibleSD}
-                onConfirm={this.handleDatePicked}
-                onCancel={this.hideDateTimePicker}
-              />
-            </View>
-
-            <View style={styles.col1}>
-              <TouchableOpacity
-                style={styles.inputBox}
-                onPress={this.showDateTimePickerEndDate}
-              >
-                <Text>End date</Text>
-              </TouchableOpacity>
-              <DateTimePicker
-                isVisible={this.state.isDateTimePickerVisibleED}
-                onConfirm={this.handleDatePicked}
-                onCancel={this.hideDateTimePicker}
-              />
-            </View>
-          </View>
-
-          <View style={styles.section3}>
-            <View style={styles.col1}>
-              <TouchableOpacity
-                style={styles.inputBox}
-                onPress={this.showDateTimePickerStartTime}
-              >
-                <Text>Start time</Text>
-              </TouchableOpacity>
-              <DateTimePicker
-                isVisible={this.state.isDateTimePickerVisibleST}
-                onConfirm={this.handleTimePicked}
-                onCancel={this.hideDateTimePicker}
-                mode="time"
-              />
-            </View>
-
-            <View style={styles.col1}>
-              <TouchableOpacity
-                style={styles.inputBox}
-                onPress={this.showDateTimePickerEndTime}
-              >
-                <Text>End time</Text>
-              </TouchableOpacity>
-              <DateTimePicker
-                isVisible={this.state.isDateTimePickerVisibleET}
-                onConfirm={this.handleTimePicked}
-                onCancel={this.hideDateTimePicker}
-                mode="time"
-              />
-            </View>
-          </View>
-
-          <View style={styles.section3}>
-            <View style={styles.col1}>
-              <View style={{ flexDirection: "column" }}>
-                <View style={{ flexDirection: "row" }}>
-                  <CheckBox
-                    value={this.state.acceptedTerms}
-                    onValueChange={() =>
-                      this.setState({
-                        acceptedTerms: !this.state.acceptedTerms
-                      })
-                    }
-                    testID="boukdTBox"
-                  />
-                  <Text style={{ marginTop: 5, fontSize: 12 }}>
-                    {" "}
-                    Accept Boukd terms
+            <View style={styles.section3}>
+              <View style={styles.col1}>
+                <TouchableOpacity
+                  style={styles.selectBtn}
+                  onPress={this.showDateTimePickerStartTime}
+                >
+                  <Text style={styles.text1}>
+                    Start Time: {this.state.startTime}
                   </Text>
-                </View>
+                </TouchableOpacity>
+                <DateTimePicker
+                  isVisible={this.state.isDateTimePickerVisibleST}
+                  onConfirm={this.handleTimePickedStart}
+                  onCancel={this.hideDateTimePicker}
+                  mode="time"
+                />
+              </View>
+
+              <View style={styles.col1}>
+                <TouchableOpacity
+                  style={styles.selectBtn}
+                  onPress={this.showDateTimePickerEndTime}
+                >
+                  <Text style={styles.text1}>
+                    End Time: {this.state.endTime}
+                  </Text>
+                </TouchableOpacity>
+                <DateTimePicker
+                  isVisible={this.state.isDateTimePickerVisibleET}
+                  onConfirm={this.handleTimePickedEnd}
+                  onCancel={this.hideDateTimePicker}
+                  mode="time"
+                />
               </View>
             </View>
 
-            <View style={styles.col1}>
-              <Text>Location: {this.state.location}</Text>
-            </View>
-          </View>
+            <View style={styles.section3}>
+              <View style={styles.col1}>
+                <View style={{ flexDirection: "column" }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <CheckBox
+                      value={this.state.acceptedTerms}
+                      onValueChange={() =>
+                        this.setState({
+                          acceptedTerms: !this.state.acceptedTerms
+                        })
+                      }
+                      testID="boukdTBox"
+                    />
+                    <Text style={{ marginTop: 5, fontSize: 12 }}>
+                      {" "}
+                      Accept Boukd terms
+                    </Text>
+                  </View>
+                </View>
+              </View>
 
-          <View style={styles.section3}>
-            <View style={styles.col1}>
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text style={styles.buttonText}>
-                  <Text style={{ color: "gray" }}>Message</Text>
-                </Text>
-              </TouchableOpacity>
+              <View style={styles.col1}>
+                <Text>Location: {this.state.location}</Text>
+              </View>
             </View>
 
-            <View style={styles.col1}>
-              <TouchableOpacity
-                style={styles.buttonContainer}
-                onPress={this.registerBooking}
-              >
-                <Text style={styles.buttonText}>Book</Text>
-              </TouchableOpacity>
+            <View style={styles.section3}>
+              <View style={styles.col1}>
+                <TouchableOpacity style={styles.buttonContainer}>
+                  <Text style={styles.buttonText}>
+                    <Text style={{ color: "gray" }}>Message</Text>
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.col1}>
+                <TouchableOpacity
+                  style={styles.buttonContainer}
+                  onPress={this.registerBooking}
+                >
+                  <Text style={styles.buttonText}>Book</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </ImageBackground>
       </View>
     );
   }
@@ -563,23 +609,23 @@ const styles = StyleSheet.create({
   },
 
   inputBox: {
-    width: "80%",
+    width: "85%",
     height: 35,
-    backgroundColor: "rgba(255,255,255,0.2)",
+    backgroundColor: "#fff",
     color: "black",
-    borderColor: "gray",
+    borderColor: "blue",
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 20,
     paddingHorizontal: 10,
-    fontSize: 12
+    fontSize: 10
   },
   inputBoxDes: {
     width: "98%",
     height: 80,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    color: "#000000",
-    borderColor: "gray",
+    backgroundColor: "#fff",
+    color: "black",
+    borderColor: "blue",
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 20,
@@ -654,7 +700,7 @@ const styles = StyleSheet.create({
   section4: {
     width: WIDTH,
     flexDirection: "row",
-    height: section4H,
+    //height: section4H,
     justifyContent: "center",
     padding: 2
   },
@@ -666,7 +712,7 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   buttonContainer: {
-    width: "80%",
+    width: "85%",
     height: 40,
     backgroundColor: "#92ca2c",
 
@@ -696,5 +742,39 @@ const styles = StyleSheet.create({
   text: {
     color: "#3f2949",
     marginTop: 10
+  },
+  picker1: {
+    width: "90%",
+    height: 35
+  },
+  itemsPicker: {
+    height: 35,
+    backgroundColor: "red",
+    color: "blue",
+    fontFamily: "Ebrima",
+    fontSize: 8
+  },
+  text1: {
+    color: "black",
+    //paddingTop: 10,
+    lineHeight: 32,
+    fontSize: 10,
+    width: "100%"
+  },
+  selectBtn: {
+    width: "85%",
+    height: 35,
+    backgroundColor: "#776af1",
+    color: "black",
+    borderColor: "blue",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    fontSize: 10
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover" // or 'stretch'
   }
 });
