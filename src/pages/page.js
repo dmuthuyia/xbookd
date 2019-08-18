@@ -11,7 +11,8 @@ import {
   View,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import { createStackNavigator } from "react-navigation";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
@@ -20,6 +21,7 @@ import Lsnavigator from "../components/lsnavigator";
 import Assets from "../assets/assets";
 import Gallery from "react-native-image-gallery";
 import Bkdgallery from "./bkdgallery/index";
+import assets from "../assets/assets";
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
@@ -78,62 +80,75 @@ export default class Page extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.container}>
-          <View style={styles.section1}>
-            <View style={styles.col1}>
-              <Text style={styles.pTextMajor}>
-                Name:
-                <Text style={styles.pTextMinor}> {this.state.userName}</Text>
-              </Text>
-              <Text style={styles.pTextMajor}>
-                Born:
-                <Text style={styles.pTextMinor}> {this.state.birthName}</Text>
-              </Text>
-              <Text style={styles.pTextMajor}>
-                Country:{" "}
-                <Text style={styles.pTextMinor}>{this.state.country}</Text>{" "}
-              </Text>
-              <Text style={styles.pTextMajor}>
-                City: <Text style={styles.pTextMinor}>{this.state.city}</Text>
-              </Text>
-              <Text style={styles.pTextMajor}>
-                Birthday:{" "}
-                <Text style={styles.pTextMinor}>{this.state.dob}</Text>
-              </Text>
-              <Text style={styles.pTextMajor}>Performance</Text>
-              <Text style={styles.pTextMajor}>Punctuality</Text>
-              <Text style={styles.pTextMajor}>Professionalism</Text>
+        <ImageBackground
+          source={assets.bg12}
+          style={{ width: "100%", height: "100%" }}
+        >
+          <View style={styles.container}>
+            <View style={styles.section1}>
+              <View style={styles.col1}>
+                <Text style={styles.pTextMajor}>
+                  Name:
+                  <Text style={styles.pTextMinor}> {this.state.userName}</Text>
+                </Text>
+                <Text style={styles.pTextMajor}>
+                  Born:
+                  <Text style={styles.pTextMinor}> {this.state.birthName}</Text>
+                </Text>
+                <Text style={styles.pTextMajor}>
+                  Country:{" "}
+                  <Text style={styles.pTextMinor}>{this.state.country}</Text>{" "}
+                </Text>
+                <Text style={styles.pTextMajor}>
+                  City: <Text style={styles.pTextMinor}>{this.state.city}</Text>
+                </Text>
+                <Text style={styles.pTextMajor}>
+                  Birthday:{" "}
+                  <Text style={styles.pTextMinor}>{this.state.dob}</Text>
+                </Text>
+                <Text style={styles.pTextMajor}>Performance</Text>
+                <Text style={styles.pTextMajor}>Punctuality</Text>
+                <Text style={styles.pTextMajor}>Professionalism</Text>
+              </View>
+              <View style={styles.col1}>
+                <Image
+                  style={{
+                    flex: 1,
+                    width: "95%",
+                    padding: 5,
+                    alignItems: "center",
+                    alignContent: "center",
+                    borderRadius: 10
+                  }}
+                  source={{
+                    uri:
+                      "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+                      this.state.dp
+                  }}
+                />
+              </View>
             </View>
-            <View style={styles.col1}>
-              <Image
-                style={{ flex: 1 }}
-                resizeMode="cover"
-                source={{
-                  uri:
-                    "https://infohtechict.co.ke/apps/boukd/images/profile/" +
-                    this.state.dp
-                }}
-              />
+            <View style={styles.section4}>
+              <TouchableOpacity
+                style={styles.bookBtnContainer}
+                onPress={() =>
+                  this.props.navigation.navigate("Booking", {
+                    userName: this.state.userName,
+                    dp: this.state.dp
+                  })
+                }
+              >
+                <Text style={styles.buttonText}>
+                  Book {this.state.userName}{" "}
+                </Text>
+              </TouchableOpacity>
             </View>
-          </View>
-          <View style={styles.section4}>
-            <TouchableOpacity
-              style={styles.bookBtnContainer}
-              onPress={() =>
-                this.props.navigation.navigate("Booking", {
-                  userName: this.state.userName,
-                  dp: this.state.dp
-                })
-              }
-            >
-              <Text style={styles.buttonText}>Book {this.state.userName} </Text>
-            </TouchableOpacity>
-          </View>
 
-          <View style={styles.section3}>
-            <Bkdgallery />
+            <View style={styles.section3}>
+              <Bkdgallery />
+            </View>
           </View>
-        </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -199,7 +214,7 @@ const styles = StyleSheet.create({
   section1: {
     width: WIDTH,
     flexDirection: "row",
-    height: section1H,
+
     padding: 2
   },
   col1: {
@@ -209,7 +224,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: WIDTH,
     flexDirection: "row",
-    height: section2H,
+
     justifyContent: "center",
     padding: 2
   },
@@ -217,14 +232,14 @@ const styles = StyleSheet.create({
     flex: 1,
     width: WIDTH,
     flexDirection: "row",
-    height: section3H,
+
     justifyContent: "center",
     padding: 2
   },
   section4: {
-    width: WIDTH,
+    //width: WIDTH,
     flexDirection: "row",
-    height: section4H,
+
     justifyContent: "center",
     padding: 2
   }
