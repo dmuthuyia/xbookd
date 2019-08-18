@@ -12,8 +12,6 @@ import Carousel, { Pagination } from "react-native-snap-carousel";
 import { sliderWidth, itemWidth } from "./styles/SliderEntry.style";
 import SliderEntry from "./components/SliderEntry";
 import styles, { colors } from "./styles/index.style";
-import { ENTRIES1, ENTRIES2 } from "./static/entries";
-import { scrollInterpolators, animatedStyles } from "./utils/animations";
 
 const IS_ANDROID = Platform.OS === "android";
 const SLIDER_1_FIRST_ITEM = 1;
@@ -61,7 +59,7 @@ export default class boukdgallery1 extends Component {
         >{`* ${number} *`}</Text>
 
         <Carousel
-          data={isTinder ? ENTRIES2 : ENTRIES1}
+          data={this.props.images1x}
           renderItem={isTinder ? this._renderLightItem : this._renderItem}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}
@@ -71,7 +69,7 @@ export default class boukdgallery1 extends Component {
           loop={true}
         />
         <View style={{ flex: 1 }}>
-          <Text>Boukd</Text>
+          <Text>Boukd </Text>
           <Text>Facebook</Text>
           <Text>Twitter</Text>
           <Text>Instagram</Text>

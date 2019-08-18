@@ -46,7 +46,52 @@ export default class Page extends Component {
       birthName: "",
       country: "",
       city: "",
-      dob: ""
+      dob: "",
+
+      images1: [
+        {
+          title: "Beautiful and dramatic Antelope Canyon",
+          subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
+          illustration:
+            "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+            props.navigation.getParam("dp", "Nothing")
+        },
+        {
+          title: "Earlier this morning, NYC",
+          subtitle: "Lorem ipsum dolor sit amet",
+          illustration:
+            "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+            props.navigation.getParam("dp", "Nothing")
+        },
+        {
+          title: "White Pocket Sunset",
+          subtitle: "Lorem ipsum dolor sit amet et nuncat ",
+          illustration:
+            "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+            props.navigation.getParam("dp", "Nothing")
+        },
+        {
+          title: "Acrocorinth, Greece",
+          subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
+          illustration:
+            "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+            props.navigation.getParam("dp", "Nothing")
+        },
+        {
+          title: "The lone tree, majestic landscape of New Zealand",
+          subtitle: "Lorem ipsum dolor sit amet",
+          illustration:
+            "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+            props.navigation.getParam("dp", "Nothing")
+        },
+        {
+          title: "Middle Earth, Germany",
+          subtitle: "Lorem ipsum dolor sit amet",
+          illustration:
+            "https://infohtechict.co.ke/apps/boukd/images/profile/" +
+            props.navigation.getParam("dp", "Nothing")
+        }
+      ]
     };
   }
   componentDidMount() {
@@ -145,7 +190,7 @@ export default class Page extends Component {
             </View>
 
             <View style={styles.section3}>
-              <Bkdgallery />
+              <Bkdgallery images1x={this.state.images1} />
             </View>
           </View>
         </ImageBackground>
