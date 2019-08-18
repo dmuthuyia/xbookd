@@ -11,6 +11,7 @@ import App from "./App";
 //import WPReact from "./src/pages/noflatlist";
 //import Looptest from "./src/pages/comments";
 //import Lsnavigator from "./src/components/lsnavigator";
+//import Bkdgallery from "./src/pages/bkdgallery/index";
 
 import { name as appName } from "./app.json";
 
