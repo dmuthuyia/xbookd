@@ -1,20 +1,20 @@
 import { StyleSheet } from "react-native";
 
 export const colors = {
-  black: "#1a1917",
-  gray: "#888888",
-  background1: "#B721FF",
-  background2: "#21D4FD"
+  black: "#4c1037",
+  gray: "black",
+  background1: "red",
+  background2: "black"
 };
 
 export default StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: colors.black
+   // backgroundColor: colors.black
   },
   container: {
-    flex: 1,
-    backgroundColor: colors.background1
+    flex: 1
+    //backgroundColor: colors.background1
   },
   gradient: {
     ...StyleSheet.absoluteFillObject
@@ -26,10 +26,10 @@ export default StyleSheet.create({
     paddingVertical: 30
   },
   boukdgallery1ContainerDark: {
-    backgroundColor: colors.black
+    //backgroundColor: colors.black
   },
   boukdgallery1ContainerLight: {
-    backgroundColor: "white"
+    //backgroundColor: "red"
   },
   title: {
     paddingHorizontal: 30,

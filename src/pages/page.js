@@ -51,13 +51,13 @@ export default class Page extends Component {
       images1: [
         {
           title: "Beautiful and dramatic Antelope Canyon",
-          subtitle: "Lorem ipsum dolor sit amet et nuncat mergitur",
+          subtitle: "",
           illustration:
             "https://infohtechict.co.ke/apps/boukd/images/profile/" +
             props.navigation.getParam("dp", "Nothing")
         },
         {
-          title: "Earlier this morning, NYC",
+          title: "",
           subtitle: "Lorem ipsum dolor sit amet",
           illustration:
             "https://infohtechict.co.ke/apps/boukd/images/profile/" +
@@ -159,11 +159,14 @@ export default class Page extends Component {
                 <Image
                   style={{
                     flex: 1,
-                    width: "95%",
+                    width: "98%",
+                    height: 130,
                     padding: 5,
-                    alignItems: "center",
+                    alignItems: "flex-end",
                     alignContent: "center",
-                    borderRadius: 10
+                    borderRadius: 5,
+                    borderWidth: 2,
+                    borderColor: "gray"
                   }}
                   source={{
                     uri:
@@ -219,7 +222,7 @@ const styles = StyleSheet.create({
 
   bookBtnContainer: {
     width: WIDTH,
-    backgroundColor: "blue",
+    backgroundColor: "#4c1037",
     paddingVertical: 5,
     borderColor: "#4c1037",
     borderWidth: 1,
@@ -259,7 +262,7 @@ const styles = StyleSheet.create({
   section1: {
     width: WIDTH,
     flexDirection: "row",
-
+    backgroundColor: "gray",
     padding: 2
   },
   col1: {
