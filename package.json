@@ -16,7 +16,7 @@
     "react": "16.8.3",
     "react-dom": "^16.9.0",
     "react-moment": "^0.9.2",
-    "react-native": "0.59.4",
+    "react-native": "0.62.3",
     "react-native-camera": "^2.6.0",
     "react-native-country-list": "^1.0.10",
     "react-native-dropdown": "0.0.6",
